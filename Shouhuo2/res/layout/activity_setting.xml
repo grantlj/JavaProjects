@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/setting_bg"
+    android:orientation="vertical"
+    tools:context=".SettingActivity" >
+
+    <include layout="@layout/setting_title_wrapper" />
+
+    <LinearLayout
+        android:id="@+id/setting_content_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/setting_content_padding_vertical"
+        android:paddingLeft="@dimen/setting_content_padding_horizontal"
+        android:paddingRight="@dimen/setting_content_padding_horizontal"
+        android:paddingTop="@dimen/setting_content_padding_vertical" >
+
+        <LinearLayout
+            android:id="@+id/setting_portrait_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/setting_list_btn_all"
+            android:clickable="true"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/setting_list_btn_padding_vertical"
+            android:paddingLeft="@dimen/setting_list_btn_padding_horizontal"
+            android:paddingRight="@dimen/setting_list_btn_padding_horizontal"
+            android:paddingTop="@dimen/setting_list_btn_padding_vertical" >
+
+            <ImageView
+                android:id="@+id/setting_portrait_holder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxHeight="55dp"
+                android:maxWidth="55dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/portrait_hold" />
+
+            <TextView
+                android:id="@+id/setting_portrait_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="更换头像"
+                android:textColor="@color/setting_list_text"
+                android:textSize="@dimen/setting_list_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/setting_list_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/setting_content_margin"
+            android:entries="@array/setting_setting"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="@null" >
+        </ListView>
+
+        <ListView
+            android:id="@+id/setting_list_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/setting_content_margin"
+            android:entries="@array/setting_about"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="@null" >
+        </ListView>
+    </LinearLayout>
+
+</LinearLayout>

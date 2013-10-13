@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@drawable/setting_title_wrapper_bg" >
+
+    <Button
+        android:id="@+id/setting_btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/btn_back_bg"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:text="返回"
+        android:textColor="@color/text2"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/setting_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="设    置"
+        android:textColor="@color/setting_title_text"
+        android:textSize="@dimen/text_medium"
+        android:textStyle="bold" />
+
+</RelativeLayout>

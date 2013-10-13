@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/setting_bg"
+    tools:context=".SettingAboutActivity" >
+
+    <include
+        android:id="@+id/title_wrapper"
+        layout="@layout/setting_title_wrapper" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_wrapper"
+        android:orientation="vertical"
+        android:padding="15dp" >
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/feedback_bg"
+            android:ems="10"
+            android:gravity="top|left"
+            android:lines="6"
+            android:hint="请输入反馈建议和意见"
+            android:padding="7dp"
+            android:textColor="@color/text2"
+            android:textSize="@dimen/text_min" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/btn_setting_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/setting_list_btn_all"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="提    交"
+          android:textColor="@color/setting_title_text"
+            android:textSize="@dimen/text_medium" />
+    </LinearLayout>
+
+</RelativeLayout>

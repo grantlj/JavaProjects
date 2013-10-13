@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <solid android:color="@color/setting_btn_nor" />
+
+    <corners
+        android:bottomLeftRadius="@dimen/setting_list_btn_cornor"
+        android:bottomRightRadius="@dimen/setting_list_btn_cornor"
+        android:topLeftRadius="@dimen/setting_list_btn_cornor"
+        android:topRightRadius="@dimen/setting_list_btn_cornor" />
+
+</shape>

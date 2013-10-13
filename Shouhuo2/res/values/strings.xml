@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">收获</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_wel">WelActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="about_text">制作：View团队\n成员：何光睿 / 张铎</string>
+    <string name="about_mid">重邮-联想\n移动互联网应用工程研究中心</string>
+
+    <string-array name="setting_setting">
+        <item>睡眠时间设置</item>
+        <item>励志格言设置</item>
+        <item>提醒设置</item>
+    </string-array>
+    <string-array name="setting_about">
+        <item>统计信息</item>
+        <item>检查更新</item>
+        <item>反馈建议</item>
+        <item>关于</item>
+    </string-array>
+    <string-array name="context_plan_once">
+        <item>完成计划</item>
+        <item>编辑计划</item>
+        <item>删除计划</item>
+    </string-array>
+    <string-array name="context_plan_daily">
+        <item>完成今日计划</item>
+        <item>完成所有计划</item>
+        <item>编辑计划</item>
+        <item>删除计划</item>
+    </string-array>
+    <string-array name="context_harvest">
+        <item>编辑收获</item>
+        <item>删除收获</item>
+    </string-array>
+
+    <string name="title_activity_settting_about">SetttingAboutActivity</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
+    <string name="title_activity_setting_status">SettingStatusActivity</string>
+    <string name="title_activity_setting_time">SettingTimeActivity</string>
+    <string name="title_activity_setting_motto">SettingMottoActivity</string>
+    <string name="title_activity_setting_remain">SettingRemainActivity</string>
+    <string name="title_activity_alarm">AlarmActivity</string>
+    <string name="setting_status_title_days">共使用《收获》 %1$d 天！</string>
+    <string name="setting_status_title_harvest">共记录“收获” %1$d 条</string>
+    <string name="title_activity_inicial">InicialActivity</string>
+
+</resources>

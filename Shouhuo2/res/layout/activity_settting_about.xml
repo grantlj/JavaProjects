@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/setting_bg"
+    tools:context=".SettingAboutActivity" >
+
+    <include
+        android:id="@+id/include1"
+        layout="@layout/setting_title_wrapper" />
+
+    <TextView
+        android:id="@+id/text_status_days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/include1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="88dp"
+        android:text="@string/about_text"
+        android:textColor="@color/text2"
+        android:textSize="@dimen/text_medium" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="26dp"
+        android:gravity="center"
+        android:text="@string/about_mid"
+        android:textColor="@color/about_mid"
+        android:textSize="@dimen/text_min" />
+
+</RelativeLayout>

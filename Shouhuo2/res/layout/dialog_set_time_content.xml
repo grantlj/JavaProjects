@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="15dp"
+    android:paddingTop="15dp" >
+
+    <include
+        android:id="@+id/year_pick"
+        layout="@layout/set_time_element" />
+
+    <TextView
+        android:id="@+id/mark_text_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:text="年"
+        android:textColor="@color/text2"
+        android:textSize="@dimen/text_min" />
+
+    <include
+        android:id="@+id/month_pick"
+        layout="@layout/set_time_element" />
+
+    <TextView
+        android:id="@+id/mark_text_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:text="月"
+        android:textColor="@color/text2"
+        android:textSize="@dimen/text_min" />
+
+    <include
+        android:id="@+id/day_pick"
+        layout="@layout/set_time_element" />
+
+    <TextView
+        android:id="@+id/mark_text_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:text="日"
+        android:textColor="@color/text2"
+        android:textSize="@dimen/text_min" />
+
+    <include
+        android:id="@+id/hour_pick"
+        layout="@layout/set_time_element" />
+
+    <TextView
+        android:id="@+id/mark_text_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:text="时"
+        android:textColor="@color/text2"
+        android:textSize="@dimen/text_min" />
+
+    <include
+        android:id="@+id/minute_pick"
+        layout="@layout/set_time_element" />
+
+    <TextView
+        android:id="@+id/mark_text_minute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:text="分"
+        android:textColor="@color/text2"
+        android:textSize="@dimen/text_min" />
+
+</LinearLayout>

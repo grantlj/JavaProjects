@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/date_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/harvest_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="今天"
+            android:textColor="@color/text2" />
+
+        <ImageView
+            android:id="@+id/date_mart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="196dp"
+            android:background="@drawable/mark" />
+    </LinearLayout>
+
+    <com.mid.shouhuo.ui.HarvestItemListView
+        android:id="@+id/harvest_list_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="94dp"
+        android:background="@null"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="13dp"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="@null" >
+    </com.mid.shouhuo.ui.HarvestItemListView>
+
+</LinearLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="text">#bd732f</color>
+    <color name="text2">#692d01</color>
+    <color name="portrait_bg">#b77746</color>
+    <color name="motto_bg">#e1c389</color>
+    <color name="setting_bg">#fbf4b4</color>
+    <color name="setting_title_text">#fbf4b4</color>
+    <color name="setting_list_text">#fffbd8</color>
+    <color name="setting_btn_nor">#b77746</color>
+    <color name="setting_btn_pre">#d99867</color>
+    <color name="about_mid">#aabf6812</color>
+    <color name="edit_back">#fffcde</color>
+    <color name="text_setting_status_title">#9f541c</color>
+    <color name="context_menu_item_nor">#fcfaf1</color>
+    <color name="context_menu_item_pre">#ddfcfaf1</color>
+    <color name="context_menu_item_text">#966e38</color>
+    <color name="context_menu_divider_color">#ccd2ac8e</color>
+
+</resources>

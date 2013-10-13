@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+     <solid android:color="@color/context_menu_item_pre" />
+
+    <corners
+        android:bottomLeftRadius="@dimen/setting_list_btn_cornor"
+        android:bottomRightRadius="@dimen/setting_list_btn_cornor"
+        android:topLeftRadius="0dp"
+        android:topRightRadius="0dp" />
+
+</shape>

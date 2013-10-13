@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/setting_bg"
+    tools:context=".SettingAboutActivity" >
+
+    <include
+        android:id="@+id/title_wrapper"
+        layout="@layout/setting_title_wrapper" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_wrapper"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/setting_content_padding_vertical"
+        android:paddingLeft="@dimen/setting_content_padding_horizontal"
+        android:paddingRight="@dimen/setting_content_padding_horizontal"
+        android:paddingTop="@dimen/setting_content_padding_vertical" >
+
+        <TextView
+            android:id="@+id/volumn_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="设置提醒音量"
+            android:textColor="@color/text2"
+            android:textSize="@dimen/text_min" />
+
+        <SeekBar
+            android:id="@+id/volome_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:max="10"
+            android:minHeight="0dp"
+            android:progress="9"
+            android:progressDrawable="@drawable/volume_seekbar_style"
+            android:thumb="@drawable/volume_thumb"
+            android:thumbOffset="8dp" />
+
+        <CheckBox
+            android:id="@+id/box_vibrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:text="震动提醒"
+            android:textColor="@color/text2"
+            android:textSize="@dimen/text_min" />
+    </LinearLayout>
+
+</RelativeLayout>

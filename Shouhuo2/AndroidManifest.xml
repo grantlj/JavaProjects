@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mid.shouhuo"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.mid.shouhuo.MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.mid.shouhuo.WelActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.mid.shouhuo.SettingActivity"
+            android:label="@string/title_activity_setting" >
+        </activity>
+        <activity
+            android:name="com.mid.shouhuo.SettingAboutActivity"
+            android:label="@string/title_activity_settting_about" >
+        </activity>
+        <activity
+            android:name="com.mid.shouhuo.SettingFeedbackActivity"
+            android:label="@string/title_activity_feedback" >
+        </activity>
+        <activity
+            android:name="com.mid.shouhuo.SettingStatusActivity"
+            android:label="@string/title_activity_setting_status" >
+        </activity>
+        <activity
+            android:name="com.mid.shouhuo.SettingTimeActivity"
+            android:label="@string/title_activity_setting_time" >
+        </activity>
+        <activity
+            android:name="com.mid.shouhuo.SettingMottoActivity"
+            android:label="@string/title_activity_setting_motto" >
+        </activity>
+        <activity
+            android:name="com.mid.shouhuo.SettingRemindActivity"
+            android:label="@string/title_activity_setting_remain" >
+        </activity>
+
+        <receiver
+            android:name="com.mid.shouhuo.alarm.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" >
+        </receiver>
+
+        <activity
+            android:name="com.mid.shouhuo.alarm.AlarmActivity"
+            android:label="@string/title_activity_alarm"
+            android:theme="@style/MyDialog" >
+        </activity>
+        <activity
+            android:name="com.mid.shouhuo.InicialActivity"
+            android:label="@string/title_activity_inicial" >
+        </activity>
+    </application>
+
+</manifest>

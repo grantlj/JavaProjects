@@ -1,0 +1,130 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/harvest_bg"
+    tools:context=".MainActivity" >
+
+    <!-- 头部wrapper -->
+
+    <LinearLayout
+        android:id="@+id/main_header_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_bg"
+        android:baselineAligned="false"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <!-- btn_plan -->
+
+        <Button
+            android:id="@+id/btn_plan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_weight="0"
+            android:background="@drawable/plan_btn"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="10"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_min" />
+
+        <LinearLayout
+            android:id="@+id/main_portrait_wrapper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/btn_header_portrait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:background="@color/portrait_bg"
+                android:maxHeight="55dp"
+                android:maxWidth="55dp"
+                android:padding="3dp"
+                android:src="@drawable/portrait_hold" />
+
+            <TextView
+                android:id="@+id/main_header_motto"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@color/motto_bg"
+                android:gravity="center"
+                android:maxLines="2"
+                android:maxWidth="@dimen/item_max_width"
+                android:padding="8dp"
+                android:text="人生在勤，\n不索何获！"
+                android:textColor="@color/text2"
+                android:textSize="@dimen/text_medium" />
+        </LinearLayout>
+
+        <!-- btn_harvest -->
+
+        <Button
+            android:id="@+id/btn_harvest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="0"
+            android:background="@drawable/harvest_btn"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="10"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_min"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- 内容wrapper -->
+
+    <FrameLayout
+        android:id="@+id/main_content_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/main_header_wrapper" >
+
+        <!-- 列表pager -->
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_content_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- 列表名称 -->
+
+        <RelativeLayout
+            android:id="@+id/list_title_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/title_plan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/plan_list_title"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/title_harvest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/harvest_list_title"
+                android:visibility="visible" />
+        </RelativeLayout>
+    </FrameLayout>
+
+</RelativeLayout>
