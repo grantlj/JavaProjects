@@ -73,7 +73,7 @@ static class TChecker
    {
 
 	   for (int i=10;i<99;i++)
-		   for (int j=1000/i;j<9999/10;j++)
+		   for (int j=1000/i;j<9999/i;j++)
 		   {
 			   int x=i*j;
 			   TChecker Check=new TChecker(x,i,j);
