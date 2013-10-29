@@ -11,7 +11,7 @@
 import java.util.*;
 class Tnums
 {
-  public int counts=10;
+  public int counts=25;
   int[] value=new int[counts];
   Scanner sc=new Scanner(System.in);
   

@@ -13,7 +13,7 @@
 
 class Tnums
 {
-  public int counts=10;
+  public int counts=15;
   int[] value=new int[counts];
   
   public Tnums()
