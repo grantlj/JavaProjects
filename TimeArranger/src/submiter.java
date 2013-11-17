@@ -41,6 +41,7 @@ public class submiter {
 		{
 		  System.out.println("Enter your username:");
 		  username=new Scanner(System.in).nextLine().toUpperCase();
+		  System.out.println("Enter your password(stu id):");
 		  pwd=new Scanner(System.in).nextLine().toUpperCase();
 		}
 		while (!new MemberSets().inNameList(username,pwd));
@@ -132,7 +133,7 @@ public class submiter {
 	{
 	PrintStream print=new PrintStream(new FileOutputStream(new File(fileName)));
 	print.println(week);
-    for (int i=0;i<7;i++)
+    for (int i=1;i<=6;i++)
 	   print.println(time[i]);
 	print.close();
 	}

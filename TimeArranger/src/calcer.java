@@ -126,18 +126,20 @@ public class calcer {
 		for (int i=0;i<12;i++)
 			if (Raw[i][time])
 			{
-				Result.AttenCount++;
-				Result.Atten[Result.AttenCount]=i;
+				
+				Result.Atten[Result.AttenCount++]=i;
 			}
 			else
 			{
-				Result.UttenCount++;
-				Result.Utten[Result.UttenCount]=i;
+				
+				Result.Utten[Result.UttenCount++]=i;
 			}
 	}
 	
 	public static void calcResult() throws FileNotFoundException
 	{
+		System.out.println();
+		System.out.println("=====================Calc Result===========================");
 		if (!getInfoFromFile())
 		{
 			System.out.println("Unable to calc class arragement result.");
@@ -178,6 +180,7 @@ public class calcer {
 				   maxp=i;
 				   refreshAttendList(maxp);
 			   }
+		   System.out.println("position:"+maxp);
 		    
 		}
 	saveResultToFile();	
@@ -201,19 +204,21 @@ public class calcer {
 	public static void saveResultToFile() throws FileNotFoundException
 	{
 		PrintStream print=new PrintStream(new FileOutputStream(new File(week+".result")));
-		print.println("=====================第 "+week+" 周 APP组培训计划=========================");
+		print.println("=====================第 "+week+" 周 APP组培训计划====================================");
 		print.println("主讲人："+Result.lecture);
 		print.println("培训内容："+Result.lesson);
 		print.println("培训时间："+TimeSets.weekDay[Result.selectedTime]);
 		print.println("培训地点：");
 		print.println("========================================================================");
-	    print.println("参与培训人员名单：");
+	    print.println();
+		print.println("参与培训人员名单：");
 	    for (int i=0;i<Result.AttenCount;i++)
 	    	print.printf("NO.%d\t%s\t%s\n",i+1,MemberSets.Name[Result.Atten[i]],MemberSets.Pwd[Result.Atten[i]]);
 	    print.println("========================================================================");
 	    if (Result.UttenCount!=0)
 	    {
-	      print.println("缺席培训人员名单：");
+	        print.println();
+	    	print.println("缺席培训人员名单：");
 	      for (int i=0;i<Result.UttenCount;i++)
 	    	  print.printf("NO.%d\t%s\t%s\n",i+1,MemberSets.Name[Result.Utten[i]],MemberSets.Pwd[Result.Utten[i]]); 
 	    }
@@ -248,14 +253,29 @@ public class calcer {
 	   
 	}
 	
-	public static void getResultFromFile()
-	{
-		
-	}
 	
-	public static void showResult()
+	public static void showResult() throws FileNotFoundException
 	{
-		
+		System.out.println();
+		System.out.println("=====================Result=============================");
+		String tmpFileName;
+		File tmp;
+		do
+		{
+		  System.out.println("Enter the week to view:");
+		  int week=new Scanner(System.in).nextInt();
+		  tmpFileName=week+".result";
+		  tmp=new File(tmpFileName);
+		}
+		while (!tmp.exists());
+		Scanner sc=new Scanner(tmp);
+		do
+		{
+			String out=sc.nextLine();
+			System.out.println(out);
+		}
+		while (sc.hasNextLine());
+		sc.close();
 	}
 	
 	public static void showInfo()
@@ -277,7 +297,7 @@ public class calcer {
 			System.out.println("1.Generate/Edit new arrangement.");
 			System.out.println("2.Calculate class arrange result.");
 			System.out.println("3.Publish class arrange result.");
-			System.out.println("4.Show/Print class arrange result.");
+			System.out.println("4.Show class arrange result.");
 			System.out.println("5.Clean everything.");
 			System.out.println("6.Exit.");
 			int sel;
@@ -301,7 +321,6 @@ public class calcer {
 		    case 4:
 		    	getInfoFromFile();
 		    	showInfo();
-		    	getResultFromFile();
 		    	showResult();
 			    break;
 		    case 5:
