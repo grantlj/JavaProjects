@@ -2,179 +2,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream; 
-import java.io.IOException; 
-import java.io.FileInputStream; 
+
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
-
-import sun.net.*; 
-import sun.net.ftp.FtpClient;
-
-class TimeSets{
-	static int SAT_NOON=1;static int SUN_NOON=4;
-	static int SAT_ANOO=2;static int SUN_ANOO=5;
-	static int SAT_EVEN=3;static int SUN_EVEN=6;
-	public final static String[] weekDay=new String[7];
-	static
-	{
-		weekDay[SAT_NOON]="Saturday 8 am - 12 am";
-		weekDay[SAT_ANOO]="Saturday 14 pm - 18 pm";
-		weekDay[SAT_EVEN]="Saturday 19 pm - 22 pm";
-		weekDay[SUN_NOON]="Sunday 8 am - 12 am";
-		weekDay[SUN_ANOO]="Sunday 14 pm - 18 pm";
-		weekDay[SUN_EVEN]="Sunday 19 pm - 22 pm";
-		
-	}
-}
-
-class MemberSets{
-	private final static String[] Name=new String[12];
-	private final static String[] Pwd=new String[12];
-	static 
-	{
-		Name[0]="admin";           Pwd[0]="ADMIN";
-		Name[1]="Liu Jiang";       Pwd[1]="2013210294";
-		Name[2]="Qiao Nan";        Pwd[2]="2013211453";
-		Name[3]="Gu Ruiqin";       Pwd[3]="2013214104";
-		Name[4]="Deng Jie";        Pwd[4]="2013213733";
-		Name[5]="Wang Jingjing";   Pwd[5]="2013212028";
-		Name[6]="Wang Hexing";     Pwd[6]="2013211619";
-		Name[7]="Quan Meng";       Pwd[7]="2013210261";
-		Name[8]="Yan Youyu";       Pwd[8]="2013210315";
-		Name[9]="Huang Ying";      Pwd[9]="2013213929";
-		Name[10]="Hao Yu";         Pwd[10]="2013213808";
-		Name[11]="Zhai Dongyan";   Pwd[11]="2013210102";
-	}
-	public boolean inNameList(String x,String y)
-	{
-		boolean bool=false;
-		for (int i=0;i<12;i++)
-			if (Name[i].toUpperCase().equals(x.toUpperCase()) && Pwd[i].equals(y.toUpperCase())) 
-			{
-				bool=true;
-				break;
-			}
-		return bool;
-	}
-}
-
-class FtpUtil 
-{
-	FtpClient ftpClient;
-	public void connectServer(String server,String user,String password, String path) 
-	{
-	    try
-	    {
-		ftpClient=new FtpClient();
-		ftpClient.openServer(server);
-		ftpClient.login(user,password);
-		if (path.length()!=0) ftpClient.cd(path);
-		ftpClient.binary();
-	    } catch (Exception e)
-	    {
-	    	e.printStackTrace();
-	    	System.exit(0);
-	    }
-	}
-	
-	private long upload(String filename,String newname) 
-	{
-		long result=0;
-		TelnetOutputStream os=null;
-		FileInputStream is=null;
-		try
-		{
-			java.io.File file_in=new java.io.File(filename);
-			if (!file_in.exists()) return -1;   //File not exists.
-			os=ftpClient.put(newname);
-			result=file_in.length();           //Upload ok, return size.
-			is=new FileInputStream(file_in);
-			byte[] bytes=new byte[1024];
-			int c;
-			while ((c=is.read(bytes))!=-1) 
-			{
-				os.write(bytes,0,c);
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.exit(0);
-		}
-		finally{
-			if (is!=null)
-				try {
-					is.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					System.exit(0);
-				}
-		    if(os!=null)
-				try {
-					os.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					System.exit(0);
-				}
-		}
-
-	return result;
-	}
-	
-	public long upload(String filename) throws Exception
-	{
-		return upload(filename,filename);
-	}
-	
-
-	public long download(String filename,String newfilename) throws Exception
-	{
-		long result=0;
-		TelnetInputStream is=null;
-		FileOutputStream os=null;
-		try
-		{
-			is=ftpClient.get(filename);
-			java.io.File outfile=new java.io.File(newfilename);
-			os=new FileOutputStream(outfile);
-			byte[] bytes=new byte[1024];
-			int c;
-			while ((c=is.read(bytes))!=-1)
-			{
-				os.write(bytes,0,c);
-				result+=c;
-			}
-		} catch(IOException e)
-		{
-			e.printStackTrace();
-			System.exit(0);
-		}
-		finally {
-			if (is!=null)
-				is.close();
-		    if (os!=null)
-		    	os.close();
-		}
-		return result;
-	}
-	
-	public void closeServer() throws IOException
-	{
-		try
-		{
-			if (ftpClient!=null)
-				ftpClient.closeServer();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
- 
-}
 
 public class submiter {
 	
@@ -185,6 +17,7 @@ public class submiter {
 	static String username;
 	static String pwd;
 	
+	static String arrangeFileName="arrange.info";
 	static int week;
 	static String lecture;
 	static String lesson;
@@ -229,7 +62,7 @@ public class submiter {
 	public static void getInfoFromFtp()
 	{
 		try {
-			ftp.download("arrange.info", "arrange.info");
+			ftp.download(arrangeFileName,arrangeFileName);
 			Logger("Download arrangement file successfully.");
 		} catch (Exception e) {
 			Logger("Download arrangement file unsuccessfully.");
@@ -237,7 +70,7 @@ public class submiter {
 			System.exit(0);
 		}
 		
-		File file=new File("arrange.info");
+		File file=new File(arrangeFileName);
 		
 		try {
 			Scanner sc=new Scanner(file);

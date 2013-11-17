@@ -1,65 +1,59 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
-
-/*class TimeSets{
-	static int SAT_NOON=1;static int SUN_NOON=4;
-	static int SAT_ANOO=2;static int SUN_ANOO=5;
-	static int SAT_EVEN=3;static int SUN_EVEN=6;
-	public final static String[] weekDay=new String[7];
-	static
-	{
-		weekDay[SAT_NOON]="Saturday 8 am - 12 am";
-		weekDay[SAT_ANOO]="Saturday 14 pm - 18 pm";
-		weekDay[SAT_EVEN]="Saturday 19 pm - 22 pm";
-		weekDay[SUN_NOON]="Sunday 8 am - 12 am";
-		weekDay[SUN_ANOO]="Sunday 14 pm - 18 pm";
-		weekDay[SUN_EVEN]="Sunday 19 pm - 22 pm";
-		
-	}
+class Result
+{
+	static String timeStamp;
+	static int week;
+	static String lecture;
+	static String lesson;
+	static int AttenCount;
+	static int UttenCount;
+	static int selectedTime;
+	public  static int[] Atten=new int[12];
+	public  static int[] Utten=new int[12];
 }
-
-class MemberSets{
-	private final static String[] Name=new String[12];
-	private final static String[] Pwd=new String[12];
-	static 
-	{
-		Name[0]="admin";           Pwd[0]="ADMIN";
-		Name[1]="Liu Jiang";       Pwd[1]="2013210294";
-		Name[2]="Qiao Nan";        Pwd[2]="2013211453";
-		Name[3]="Gu Ruiqin";       Pwd[3]="2013214104";
-		Name[4]="Deng Jie";        Pwd[4]="2013213733";
-		Name[5]="Wang Jingjing";   Pwd[5]="2013212028";
-		Name[6]="Wang Hexing";     Pwd[6]="2013211619";
-		Name[7]="Quan Meng";       Pwd[7]="2013210261";
-		Name[8]="Yan Youyu";       Pwd[8]="2013210315";
-		Name[9]="Huang Ying";      Pwd[9]="2013213929";
-		Name[10]="Hao Yu";         Pwd[10]="2013213808";
-		Name[11]="Zhai Dongyan";   Pwd[11]="2013210102";
-	}
-	public boolean inNameList(String x,String y)
-	{
-		boolean bool=false;
-		for (int i=0;i<12;i++)
-			if (Name[i].toUpperCase().equals(x.toUpperCase()) && Pwd[i].equals(y.toUpperCase())) 
-			{
-				bool=true;
-				break;
-			}
-		return bool;
-	}
-}
-*/
 
 public class calcer {
+	static String arrangeFileName="arrange.info";
 	static int week;
 	static String lecture;
 	static String lesson;
 	
-	public static boolean checkArrangeFile(String x)
+	static boolean[][] Raw=new boolean[12][7];
+	static int[] total=new int[7];
+	
+	
+	public static boolean checkArrangeFile()
 	{
-       File file=new File(x);
+       File file=new File(arrangeFileName);
+       if (file.exists()) 
+    	   return true;
+       else 
+    	   return false;
+	}
+	
+	private static void saveInfoToFile() throws FileNotFoundException
+	{
+		PrintStream print=new PrintStream(new FileOutputStream(new File(arrangeFileName)));
+		print.println(week);
+		print.println(lecture);
+		print.print(lesson);
+		print.close();
+		System.out.println("Save arrange file successfully.");
+	}
+	
+	private static boolean getInfoFromFile()
+	{
+		if (checkArrangeFile())
+		{
+		File file=new File(arrangeFileName);
 		
 		try {
 			Scanner sc=new Scanner(file);
@@ -68,27 +62,268 @@ public class calcer {
 			lecture=sc.nextLine();
 			lesson=sc.nextLine();
 			sc.close();
-			return true;
-		} catch (FileNotFoundException e) {
+		
+			} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			return false;
-			//System.exit(0);
+			
 		}
+		return true;
+		}
+		else {
+			System.out.println("Arrange file not exists.");
+			return false;
+		}
+		
 	}
 	
-	public static void showClassInfo()
+	public static void generateArrangeFile() throws FileNotFoundException
+	{
+		System.out.println();
+		System.out.println("=====================Gnenerate===========================");
+		
+		if (checkArrangeFile())
+		{
+			int sel;
+			System.out.println("Arrange file already exists.");
+			getInfoFromFile();
+			showInfo();
+			do
+			{
+			
+		    System.out.println("1.Rewrite.");
+		    System.out.println("2.Abort.");
+		    sel=new Scanner(System.in).nextInt();
+			}
+			while (sel!=1 && sel!=2);
+			if (sel==2)
+				return;
+ 		}
+		
+		System.out.print("Week:");
+		week=new Scanner(System.in).nextInt();
+		
+		System.out.print("Lecturer:");
+		lecture=new Scanner(System.in).nextLine();
+		
+		System.out.print("Lesson information:");
+		lesson=new Scanner(System.in).nextLine();
+		
+		System.out.println("**********Generate completed.**********");
+		showInfo();
+		saveInfoToFile();
+		
+	}
+	
+	private static void refreshAttendList(int time)
+	{
+		SimpleDateFormat df=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		Result.selectedTime=time;
+		Result.AttenCount=0;Result.UttenCount=0;
+		Result.lecture=lecture;
+		Result.lesson=lesson;
+		Result.week=week;
+		Result.timeStamp=df.format(new Date());
+		for (int i=0;i<12;i++)
+			if (Raw[i][time])
+			{
+				Result.AttenCount++;
+				Result.Atten[Result.AttenCount]=i;
+			}
+			else
+			{
+				Result.UttenCount++;
+				Result.Utten[Result.UttenCount]=i;
+			}
+	}
+	
+	public static void calcResult() throws FileNotFoundException
+	{
+		if (!getInfoFromFile())
+		{
+			System.out.println("Unable to calc class arragement result.");
+			return;
+		}
+		else
+		{
+			for (int i=0;i<12;i++)
+			{
+				String tmpFileName=week+"_"+MemberSets.Name[i].toUpperCase()+".dat";
+				File tmp=new File(tmpFileName);
+				if (!tmp.exists()) 
+					System.out.println(MemberSets.Name[i]+" haven't submit.");
+				else
+				{
+			 	  Scanner sc=new Scanner(tmp);
+				  sc.nextLine();
+				  for (int j=1;j<=6;j++)
+				  {
+					  Raw[i][j]=sc.nextBoolean();
+					  sc.nextLine();
+				  }
+				  sc.close();
+				} 
+			}
+		    
+			for (int i=1;i<=6;i++)
+				total[i]=0;
+		    for (int i=1;i<=6;i++)
+		    	for (int j=0;j<12;j++)
+		    		if (Raw[j][i]) total[i]++;
+		    
+		   int max=-1;int maxp=0;
+		   for (int i=1;i<=6;i++)
+			   if (total[i]>max)
+			   {
+				   max=total[i];
+				   maxp=i;
+				   refreshAttendList(maxp);
+			   }
+		    
+		}
+	saveResultToFile();	
+	}
+	
+	
+	/*
+	 * class Result
+
+	static String timeStamp;
+	static int week;
+	static String lecture;
+	static String lesson;
+	static int AttenCount;
+	static int UttenCount;
+	static int selectedTime;
+	public  static int[] Atten=new int[12];
+	public  static int[] Utten=new int[12];
+
+	 */
+	public static void saveResultToFile() throws FileNotFoundException
+	{
+		PrintStream print=new PrintStream(new FileOutputStream(new File(week+".result")));
+		print.println("=====================第 "+week+" 周 APP组培训计划=========================");
+		print.println("主讲人："+Result.lecture);
+		print.println("培训内容："+Result.lesson);
+		print.println("培训时间："+TimeSets.weekDay[Result.selectedTime]);
+		print.println("培训地点：");
+		print.println("========================================================================");
+	    print.println("参与培训人员名单：");
+	    for (int i=0;i<Result.AttenCount;i++)
+	    	print.printf("NO.%d\t%s\t%s\n",i+1,MemberSets.Name[Result.Atten[i]],MemberSets.Pwd[Result.Atten[i]]);
+	    print.println("========================================================================");
+	    if (Result.UttenCount!=0)
+	    {
+	      print.println("缺席培训人员名单：");
+	      for (int i=0;i<Result.UttenCount;i++)
+	    	  print.printf("NO.%d\t%s\t%s\n",i+1,MemberSets.Name[Result.Utten[i]],MemberSets.Pwd[Result.Utten[i]]); 
+	    }
+	    for (int i=0;i<8;i++)
+	      print.println();
+	    print.println("                        制表时间"+Result.timeStamp);	    
+	    print.close();
+	}
+	
+	public static void clean() throws IOException
+	{
+	   System.out.println("*****************ARE YOU SURE TO CLEAN EVERYTHING?****************");
+	 
+	   int sc;
+	   do
+	   {
+		   System.out.println("1=yes;2=no");
+	       sc=new Scanner(System.in).nextInt();
+	   }
+	   while (sc!=1 && sc!=2);
+	   if (sc==1) 
+	   {
+	
+		  Runtime rt = Runtime.getRuntime();
+		  rt.exec("cmd /c del *.info");
+		  System.out.println(".info file deleted.");
+		  rt.exec("cmd /c del *.dat");
+		  System.out.println(".dat file deleted.");
+		  rt.exec("cmd /c del *.result");
+		  System.out.println(".result file deleted.");
+	   }
+	   
+	}
+	
+	public static void getResultFromFile()
+	{
+		
+	}
+	
+	public static void showResult()
+	{
+		
+	}
+	
+	public static void showInfo()
 	{
 		System.out.println();
 		System.out.println("=====================Class Info==========================");
 		System.out.println("Week:"+week);
 		System.out.println("Lecturer:"+lecture);
 		System.out.println("Lesson:"+lesson);
+		System.out.println();
 	}	
 	
-  public static void main(String[] args)
+	public static void showMenu() throws IOException
+	{
+
+		do
+		{
+			System.out.println("=========================Menu============================");
+			System.out.println("1.Generate/Edit new arrangement.");
+			System.out.println("2.Calculate class arrange result.");
+			System.out.println("3.Publish class arrange result.");
+			System.out.println("4.Show/Print class arrange result.");
+			System.out.println("5.Clean everything.");
+			System.out.println("6.Exit.");
+			int sel;
+			
+		do
+		{
+		  System.out.println();
+		  System.out.println("Select a funtion to continue.");
+		  sel=new Scanner(System.in).nextInt();
+		  switch (sel)
+		  {
+		    case 1:
+		    	generateArrangeFile();
+			    break;
+		    case 2:
+		    	calcResult();
+			    break;
+		    case 3:
+		    	saveResultToFile();
+			    break;
+		    case 4:
+		    	getInfoFromFile();
+		    	showInfo();
+		    	getResultFromFile();
+		    	showResult();
+			    break;
+		    case 5:
+		    	clean();
+		    	break;
+		    case 6:
+			    System.exit(0);	  
+		  }
+		}
+		while (!(sel>=1 && sel<=5));
+		}
+		while (true);
+	}
+	
+  public static void main(String[] args) throws IOException
   {
-	  if (checkArrangeFile("arrange.info"))
-		  showClassInfo();
+	 try {
+		showMenu();
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	 
   }
 }
