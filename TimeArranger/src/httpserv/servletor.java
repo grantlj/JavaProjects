@@ -28,66 +28,74 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.http.*;
 
-public class servletor implements Servlet{
-    static int week,webcount;
+class MemberSets2{
+	final static String[] Name=new String[12];
+    final static String[] Pwd=new String[12];
+	//private final static String[] Tel=new String[12];
+	static 
+	{
+		Name[0]="admin";           Pwd[0]="ADMIN";              
+		Name[1]="Liu Jiang";       Pwd[1]="2013210294";         
+		Name[2]="Qiao Nan";        Pwd[2]="2013211453";         
+		Name[3]="Gu Ruiqin";       Pwd[3]="2013214104";
+		Name[4]="Deng Jie";        Pwd[4]="2013213733";
+		Name[5]="Wang Jingjing";   Pwd[5]="2013212028";
+		Name[6]="Wang Hexing";     Pwd[6]="2013211619";
+		Name[7]="Quan Meng";       Pwd[7]="2013210261";
+		Name[8]="Yan Youyu";       Pwd[8]="2013210315";
+		Name[9]="Huang Ying";      Pwd[9]="2013213929";
+		Name[10]="Hao Yu";         Pwd[10]="2013213808";
+		Name[11]="Zhai Dongyan";   Pwd[11]="2013210102";
+	}
+	
+	
+	public static boolean inNameList(String x,String y)
+	{
+		boolean bool=false;
+		for (int i=0;i<12;i++)
+			if (Name[i].toUpperCase().equals(x.toUpperCase()) && Pwd[i].equals(y.toUpperCase())) 
+			{
+				bool=true;
+				break;
+			}
+		return bool;
+	}
+}
+
+public class servletor extends HttpServlet{
+  
+	private static final long serialVersionUID = 1L;
+	static int week,webcount;
     static String fileName;
-	/* (non-Javadoc)
-	 * @see javax.servlet.Servlet#destroy()
-	 */
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see javax.servlet.Servlet#getServletConfig()
-	 */
-	@Override
-	public ServletConfig getServletConfig() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see javax.servlet.Servlet#getServletInfo()
-	 */
-	@Override
-	public String getServletInfo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
-	 */
-	@Override
-	public void init(ServletConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
+	
+    static
+    {
 		System.out.println("Servletor is running...");
 		webcount=0;
 		week=new Scanner(System.in).nextInt();
 		fileName="D:\\apache-tomcat-6.0.37-windows-x64\\apache-tomcat-6.0.37\\webapps\\ta\\WEB-INF\\classes\\httpserv\\"+week+".result";
 	}
 
-	/* (non-Javadoc)
-	 * @see javax.servlet.Servlet#service(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-	 */
-	@Override
-	public void service(ServletRequest arg0, ServletResponse arg1)
+	
+    
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		arg0.setCharacterEncoding("utf-8");
-		arg1.setContentType("text/html;charset=gbk");
-		// TODO Auto-generated method stub
+		
+		req.setCharacterEncoding("utf-8");
+		resp.setContentType("text/html;charset=gbk");
+
 		webcount++;
-	    PrintWriter pw=arg1.getWriter();
-		System.out.println("New visitor:"+webcount);
+		System.out.println("WebCounter:"+webcount);
+	    PrintWriter pw=resp.getWriter();
+	   
+	    String user=req.getParameter("username");
+	    String pwd=req.getParameter("passwd");
+	    
+	    if (MemberSets2.inNameList(user, pwd))
+	    {
 		File f=new File(fileName);
 		pw.println("<html>"); 
 		pw.println(" <head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=GBK\">");
@@ -111,13 +119,27 @@ public class servletor implements Servlet{
 		pw.println("/<body>");
 		pw.println("</html>");
 		pw.close();	
-		
+	    }
+	    
+	    else
+	    {
+	    	resp.sendRedirect("login");
+	    }
+	}
+	
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+	  doGet(req,resp);
 	}
 	
 	public static void main(String[] args)
 	{
 		
 	}
+
+
+
+	
 	
    
 }
