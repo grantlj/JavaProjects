@@ -1,4 +1,29 @@
+/*Project Name: Time Arranger
+ *Version     : 1.0
+ *Author:       Grant Liu
+ *              Deng Jie
+ *      
+ *History     :
+ *Version 1.0   2013/11/17     *Finish basic functions. 
+ *
+ *Brief Introduction:
+ *   Time Arranger is a program to simplify the process 
+ *   of arranging the time for lecture high efficiently.
+ *   The program is based on C/S frame, with the tech of
+ *   Ftp and Servlet in Java language.   
+ */
 
+/*Module Name: infos
+ * Version   : 1.0
+ * Brief Introduction:
+     infos stores the basic Time info and user info, which
+     is final decorated.
+ */
+
+/*TimeSets
+ * This class store 6 time interval on weekends, which
+ * is probably for lecturer and users to choose.
+ */
 class TimeSets{
 	static int SAT_NOON=1;static int SUN_NOON=4;
 	static int SAT_ANOO=2;static int SUN_ANOO=5;
@@ -16,6 +41,11 @@ class TimeSets{
 	}
 }
 
+/*MemberSets()
+ * The class store 12 members of App group.
+ * They MUST use their name and password(stu id) to
+ * login the program and ftp server.
+ */
 class MemberSets{
 	final static String[] Name=new String[12];
     final static String[] Pwd=new String[12];
@@ -35,6 +65,12 @@ class MemberSets{
 		Name[10]="Hao Yu";         Pwd[10]="2013213808";
 		Name[11]="Zhai Dongyan";   Pwd[11]="2013210102";
 	}
+	
+	/*inNameList()
+	 * To check whether a user is valid.
+	 * x is user name.
+	 * y is user password.
+	 */
 	public boolean inNameList(String x,String y)
 	{
 		boolean bool=false;

@@ -1,3 +1,25 @@
+/*Project Name: Time Arranger
+ *Version     : 1.0
+ *Author:       Grant Liu
+ *              Deng Jie
+ *      
+ *History     :
+ *Version 1.0   2013/11/17     *Finish basic functions. 
+ *
+ *Brief Introduction:
+ *   Time Arranger is a program to simplify the process 
+ *   of arranging the time for lecture high efficiently.
+ *   The program is based on C/S frame, with the tech of
+ *   Ftp and Servlet in Java language.   
+ */
+
+/*Module Name: FtpUtil
+ * Version   : 1.0
+ * Brief Introduction:
+     FtpUtil is a class to implement basic ftp service in-
+     cluding:connect, change dir, upload, download,etc....
+ */
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;

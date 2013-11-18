@@ -1,3 +1,27 @@
+/*Project Name: Time Arranger
+ *Version     : 1.0
+ *Author:       Grant Liu
+ *              Deng Jie
+ *      
+ *History     :
+ *Version 1.0   2013/11/17     *Finish basic functions. 
+ *
+ *Brief Introduction:
+ *   Time Arranger is a program to simplify the process 
+ *   of arranging the time for lecture high efficiently.
+ *   The program is based on C/S frame, with the tech of
+ *   Ftp and Servlet in Java language.   
+ */
+
+/*Module Name: calcer
+ * Version   : 1.0
+ * Brief Introduction:
+ *   calcer is the main moudle of the server, which based
+ *   on ftp. The calcer generate arrange.info and calc out
+ *   the best time for class, then save it to a .result
+ *   file which is later for servlet to use.
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -6,6 +30,22 @@ import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+
+/*Result
+ * The class store the temporary or final result of arrange-
+ * ment.
+ * 
+ * timeStamp : record the result's generate time
+ * week      : the week which the result record
+ * lecture   : the lecturer's name
+ * lesson    : a brief introduction of lecture
+ * AttenCount: the counter of users who are able to attend 
+ *             class
+ * UttenCount: the counter of users who are not able to attend
+ *             class
+ * Atten[]   : the list of those who should attend class
+ * Utten[]   : the list of those who cant attend class
+ */
 
 class Result
 {
@@ -20,6 +60,9 @@ class Result
 	public  static int[] Utten=new int[12];
 }
 
+/*calcer
+ * The main class of calcer.java
+ */
 public class calcer {
 	static String arrangeFileName="arrange.info";
 	static int week;
@@ -29,7 +72,10 @@ public class calcer {
 	static boolean[][] Raw=new boolean[12][7];
 	static int[] total=new int[7];
 	
-	
+	/*checkArrangeFile()
+	 * To check whether the arrange.info is exist or
+	 * not.
+	 */
 	public static boolean checkArrangeFile()
 	{
        File file=new File(arrangeFileName);
@@ -39,6 +85,9 @@ public class calcer {
     	   return false;
 	}
 	
+	/*saveInfoToFile()
+	 * To save class info to arrange.info.
+	 */
 	private static void saveInfoToFile() throws FileNotFoundException
 	{
 		PrintStream print=new PrintStream(new FileOutputStream(new File(arrangeFileName)));
@@ -49,6 +98,9 @@ public class calcer {
 		System.out.println("Save arrange file successfully.");
 	}
 	
+	/*getInfoFromFile()
+	 * to obtain class info from arrange.info.
+	 */
 	private static boolean getInfoFromFile()
 	{
 		if (checkArrangeFile())
@@ -76,6 +128,9 @@ public class calcer {
 		
 	}
 	
+	/*generateArrangeFile()
+	 * To create arrange.info and get the class info from console.
+	 */
 	public static void generateArrangeFile() throws FileNotFoundException
 	{
 		System.out.println();
@@ -114,6 +169,9 @@ public class calcer {
 		
 	}
 	
+	/*refreshAttendList()
+	 * To refresh the Result class.
+	 */
 	private static void refreshAttendList(int time)
 	{
 		SimpleDateFormat df=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
@@ -136,6 +194,10 @@ public class calcer {
 			}
 	}
 	
+	/*calcResult()
+	 * The core of calcer.It works out the best time to arrange
+	 * the class.
+	 */
 	public static void calcResult() throws FileNotFoundException
 	{
 		System.out.println();
@@ -186,20 +248,8 @@ public class calcer {
 	saveResultToFile();	
 	}
 	
-	
-	/*
-	 * class Result
-
-	static String timeStamp;
-	static int week;
-	static String lecture;
-	static String lesson;
-	static int AttenCount;
-	static int UttenCount;
-	static int selectedTime;
-	public  static int[] Atten=new int[12];
-	public  static int[] Utten=new int[12];
-
+	/*saveResultToFile()
+	 * Save the result info to .result file.
 	 */
 	public static void saveResultToFile() throws FileNotFoundException
 	{
@@ -228,6 +278,12 @@ public class calcer {
 	    print.close();
 	}
 	
+	/*clean()
+	 * To clean the files below:
+	 * *.info   (arrange)
+	 * *.dat    (user submitted files)
+	 * *.reslut (calc out files)
+	 */
 	public static void clean() throws IOException
 	{
 	   System.out.println("*****************ARE YOU SURE TO CLEAN EVERYTHING?****************");
@@ -253,7 +309,9 @@ public class calcer {
 	   
 	}
 	
-	
+	/*showResult()
+	 * To read out the result from .result file.
+	 */
 	public static void showResult() throws FileNotFoundException
 	{
 		System.out.println();
@@ -278,6 +336,9 @@ public class calcer {
 		sc.close();
 	}
 	
+	/*showInfo()
+	 * Give out the basic class info.
+	 */
 	public static void showInfo()
 	{
 		System.out.println();
@@ -288,6 +349,10 @@ public class calcer {
 		System.out.println();
 	}	
 	
+	/*showMenu()
+	 * Show the menu, for administrator to choose
+	 * function.
+	 */
 	public static void showMenu() throws IOException
 	{
 
@@ -334,7 +399,10 @@ public class calcer {
 		}
 		while (true);
 	}
-	
+  
+  /*main()
+   * Program run from here.
+   */
   public static void main(String[] args) throws IOException
   {
 	 try {
