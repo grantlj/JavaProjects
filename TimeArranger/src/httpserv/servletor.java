@@ -4,6 +4,8 @@
  *              Deng Jie
  *      
  *History     :
+ *Version 1.0   2013/11/19     *Fix Bugs.
+                               *Update servlet.
  *Version 1.0   2013/11/17     *Finish basic functions. 
  *
  *Brief Introduction:
