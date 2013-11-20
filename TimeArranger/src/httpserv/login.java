@@ -22,14 +22,40 @@ public class login extends HttpServlet{
 		{
 		  PrintWriter pw=resp.getWriter();
 		  pw.println("<html>");
+		  pw.println("<head>");
+		  pw.println("<meta charset=\"utf-8\">");
+		  pw.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css.css\">");
+		  pw.println("</head>");
 		  pw.println("<body>");
-		  pw.println("<h>登陆验证</h>");
+		  pw.println("<div class=\"top\"></div>");
+		  pw.println("<div class=\"middle\">");
+		  pw.println("<div class=\"besure\">登陆验证</div>");
+		  
 		  pw.println("<form action=view method=post>");
-		  pw.println("用户名:<input type=text name=username><br>");
-		  pw.println("密码（学号）：<input type=password name=passwd><br>");
-		  pw.println("<input type=submit value=登陆>");
-		  pw.println("<input type=reset name=re value=重填><br>");
+		  pw.println("<div class=\"username\">");
+		  
+		
+		  pw.println("用户名:<input class=\"usernameinput\" type=text name=username>");
+		
+		  pw.println("</div>");
+		  
+		  pw.println("<div class=\"userkey\">");
+		 
+		  pw.println("密码（学号）：<input type=password name=passwd>");
+		
+		  pw.println("</div>");
+		  
+		  pw.println("<div class=\"login\">");
+		  pw.println("<input class=\"createbutton\" type=submit value=\"登陆\">");
+		  pw.println("<input class=\"createbutton\" type=reset name=re value=\"重填\">");
+		 
+		
+		  pw.println("</div>");
+		  pw.println("</div>");
 		  pw.println("</form>");
+		  pw.println("<div class=\"bottom\"></div>");
+		  pw.println("</body>");
+		  
 		  pw.close();
 		}
 		catch (Exception e)

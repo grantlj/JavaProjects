@@ -50,7 +50,7 @@ public class submiter {
 	 */
 	static boolean[] time=new boolean[7];
 	static FtpUtil ftp;
-	static String servIP="127.0.0.1";
+	static String servIP="grantlj.gicp.net";
 	
 	static String username;
 	static String pwd;

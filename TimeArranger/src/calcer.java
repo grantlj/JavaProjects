@@ -4,6 +4,7 @@
  *              Deng Jie
  *      
  *History     :
+ *Version 1.0   2013/11/20     *Fix bugs in GUI.
  *Version 1.0   2013/11/17     *Finish basic functions. 
  *
  *Brief Introduction:
@@ -254,11 +255,10 @@ public class calcer {
 	public static void saveResultToFile() throws FileNotFoundException
 	{
 		PrintStream print=new PrintStream(new FileOutputStream(new File(week+".result")));
-		print.println("=====================第 "+week+" 周 APP组培训计划====================================");
+		print.println("====================================第 "+week+" 周 APP组培训计划====================================");
 		print.println("主讲人："+Result.lecture);
 		print.println("培训内容："+Result.lesson);
 		print.println("培训时间："+TimeSets.weekDay[Result.selectedTime]);
-		print.println("培训地点：");
 		print.println("========================================================================");
 	    print.println();
 		print.println("参与培训人员名单：");
@@ -274,7 +274,7 @@ public class calcer {
 	    }
 	    for (int i=0;i<8;i++)
 	      print.println();
-	    print.println("                        制表时间"+Result.timeStamp);	    
+	    print.println("制表时间"+Result.timeStamp);	    
 	    print.close();
 	}
 	
