@@ -1,0 +1,91 @@
+body{
+	margin: 0;
+	background:rgb(169, 169, 235);
+}
+.top{
+	position: relative;
+	width: 1200px;
+	height: 200px;
+}
+.middle{
+	margin: 0 auto;
+	position: relative;
+	height: 250px;
+	width: 400px;
+	font-family: "Microsoft YaHei" ;
+	border: 2px rgb(20, 20, 201) solid;
+	border-radius: 6px;
+	box-shadow: 0 0 8px;
+}
+.bottom{
+	position: relative;
+	height: 100px;
+}
+
+.besure{
+	margin-top:15px;
+	height: 40px;
+	font-size: 25px;
+	border-bottom: 1px black solid;
+	line-height: 35px;
+	padding-left: 20px;
+	padding-bottom: 3px;
+	position: relative;
+	
+}
+.username{
+	height: 40px;
+	font-size: 20px;
+	line-height: 35px;
+	position: relative;
+	margin-top: 18px;
+	padding-left: 5px;
+}
+.userkey{
+	height: 40px;
+	font-size: 20px;
+	line-height: 35px;
+	position: relative;
+	margin-top: 18px;
+	padding-left: 5px;
+}
+.login{
+	height: 40px;
+	font-size: 20px;
+	line-height: 35px;
+	position: relative;
+	margin-top: 20px;
+	padding-left: 5px;
+}
+form{
+	margin: 0;
+}
+.createbutton{
+	height: 30px;
+	width: 70px;
+	background: rgba(228, 214, 243, 0.62);
+	border: 1px rgb(83, 115, 218) solid;
+	font-family: "Microsoft YaHei" ;
+	font-size: 14px;
+	border-radius: 5px;
+}
+
+input{
+	margin-left: 20px;
+	height: 25px;
+	border: 1px rgb(62, 27, 114) solid;
+	border-radius: 3px;
+	line-height: 25px;
+}
+.usernameinput{
+	margin-left: 94px;
+}
+.createbutton:hover{
+	font-size: 15px;
+	box-shadow: 0 0 3px rgb(14, 14, 131);
+}
+.createbutton:active
+{
+	font-size: 15px;
+	box-shadow: 0 0 3px rgb(14, 14, 131);
+}
