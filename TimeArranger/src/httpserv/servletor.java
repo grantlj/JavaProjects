@@ -92,55 +92,80 @@ public class servletor extends HttpServlet{
 
 		webcount++;
 		System.out.println("WebCounter:"+webcount);
-	    PrintWriter pw=resp.getWriter();
-	   
-	    String user=req.getParameter("username");
-	    String pwd=req.getParameter("passwd");
 	    
-	    if (MemberSets2.inNameList(user, pwd))
-	    {
-		File f=new File(fileName);
-		pw.println("<html>"); 
-		pw.println("<head>");
-		pw.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=GBK\">");
-		pw.println("<style>");
-		pw.println("body{");
-		pw.println("background:url(\"bg.jpg\");");
-		pw.println("height:900px;");
-		pw.println("margin:0;");
-		pw.println("}");
-		pw.println("p{");
-		pw.println("magin-top:10px;");
-		pw.println("text-align:center;");
-		pw.println("font-family:Microsoft YaHei;");
-		pw.println("}");
-		pw.println("div{");
-		pw.println("border:5px rgb(4,66,133) solid;");
-		pw.println("border-radius:15px;");
-		pw.println("box-shadow:0 0 5px");
-		pw.println("position:relative");
+		HttpSession hs=req.getSession(true);
+	    String hsinfo=(String) hs.getAttribute("passed");
 		
-		pw.println("magin:0 auto;");
-		pw.println("width:810px");
-		pw.println("height:900px");
+		PrintWriter pw=resp.getWriter();
 		
-		pw.println("}");
-		pw.println("h3{");
-		pw.println("text-align:center;");
-		pw.println("font-family:Microsoft YaHei");
-		pw.println("color: rgb(94,13,126)");
-		
-		pw.println("}");
-		
-		pw.println("</head>");
-		pw.println("<body>");
-		pw.println("</style>");
-		 
-		pw.println("<div>");
-		if (!f.exists())
+		String user="",pwd="";
+	   
+		if (hsinfo=="unknown")
 		{
-			pw.println("<p>第"+week+" 周计划尚未发布，请稍后查询。 "+"</p>");
+	      user=req.getParameter("username");
+	      pwd=req.getParameter("passwd");
 		}
+		
+		if (hsinfo==null)
+		{
+			 hs.setAttribute("passed", "unknown");
+	         hs.setAttribute("username", "");
+	         hs.setAttribute("passwd","");
+	    	resp.sendRedirect("login");
+		}
+		
+	    if (MemberSets2.inNameList(user, pwd) || hsinfo=="yes")
+	    {
+		 
+	    	if (MemberSets2.inNameList(user, pwd))
+		  {
+			  hs.setAttribute("passed", "yes");
+			  hs.setAttribute("username", user);
+			  hs.setAttribute("passwd", pwd);
+		  }
+		  
+	      File f=new File(fileName);
+		  pw.println("<html>"); 
+		  pw.println("<head>");
+		  pw.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=GBK\">");
+		  pw.println("<style>");
+		  pw.println("body{");
+		  pw.println("background:url(\"bg.jpg\");");
+		  pw.println("height:900px;");
+		  pw.println("margin:0;");
+		  pw.println("}");
+		  pw.println("p{");
+		  pw.println("magin-top:10px;");
+		  pw.println("text-align:center;");
+		  pw.println("font-family:Microsoft YaHei;");
+		  pw.println("}");
+		  pw.println("div{");
+		  pw.println("border:5px rgb(4,66,133) solid;");
+		  pw.println("border-radius:15px;");
+		  pw.println("box-shadow:0 0 5px");
+		  pw.println("position:relative");
+		
+		  pw.println("magin:0 auto;");
+		  pw.println("width:810px");
+		  pw.println("height:900px");
+		
+		  pw.println("}");
+		  pw.println("h3{");
+		  pw.println("text-align:center;");
+		  pw.println("font-family:Microsoft YaHei");
+		  pw.println("color: rgb(94,13,126)");
+		
+		  pw.println("}");
+		
+		  pw.println("</head>");
+		  pw.println("<body>");
+		  pw.println("</style>");
+		 
+		  pw.println("<div>");
+		  if (!f.exists())
+		  {
+			pw.println("<p>第"+week+" 周计划尚未发布，请稍后查询。 "+"</p>");
+		  }
 		else
 		{
 		   Scanner sc=new Scanner(f);
@@ -162,6 +187,9 @@ public class servletor extends HttpServlet{
 	    
 	    else
 	    {
+	    	 hs.setAttribute("passed", "unknown");
+	         hs.setAttribute("username", "");
+	         hs.setAttribute("passwd","");
 	    	resp.sendRedirect("login");
 	    }
 	}

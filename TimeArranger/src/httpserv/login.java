@@ -17,6 +17,17 @@ public class login extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		HttpSession hs=req.getSession(true);
+		String u=(String) hs.getAttribute("username");
+		String p=(String) hs.getAttribute("passwd");
+		
+		if (hs.getAttribute("passed")!="yes")
+		{
+			//The very first login or wrong login. we dont know whether it is valid.
+			
+			hs.setAttribute("passed", "unknown");
+		
 		resp.setContentType("text/html;charset=gbk");
 		try 
 		{
@@ -62,6 +73,10 @@ public class login extends HttpServlet{
 		{
 			e.printStackTrace();
 		}
+		}
+		else
+		    //valid.
+		    resp.sendRedirect("view?username="+u+"&passwd="+p);
 	}
 
 	/* (non-Javadoc)
