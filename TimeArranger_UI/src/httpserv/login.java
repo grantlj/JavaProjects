@@ -1,3 +1,32 @@
+/*Project Name: Time Arranger
+ *Version     : 1.2
+ *Author:       Grant Liu
+ *              Deng Jie
+ *      
+ *History     :
+ *Version 1.2   2013/11/22     *Fix Bugs.
+ *                             *Improve user validator 
+ *                              logical.
+ *                             *Realease Candidate. 
+ *Version 1.0   2013/11/19     *Fix Bugs.
+                               *Update servlet.
+ *Version 1.0   2013/11/17     *Finish basic functions. 
+ *
+ *Brief Introduction:
+ *   Time Arranger is a program to simplify the process 
+ *   of arranging the time for lecture high efficiently.
+ *   The program is based on C/S frame, with the tech of
+ *   Ftp and Servlet in Java language.   
+ */
+
+/*Module Name: httpserv/login
+ * Version   : 1.2
+ * Brief Introduction:
+*     Login is a user validator, it compare the user's input
+*     with MemberSets2 in order to ensure that ONLY valid 
+*     user can view the result of the class arrangement.
+*    
+ */
 package httpserv;
 import java.io.*;
 

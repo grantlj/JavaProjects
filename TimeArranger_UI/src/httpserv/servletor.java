@@ -1,9 +1,13 @@
 /*Project Name: Time Arranger
- *Version     : 1.0
+ *Version     : 1.2
  *Author:       Grant Liu
  *              Deng Jie
  *      
  *History     :
+ *Version 1.2   2013/11/22     *Fix Bugs.
+ *                             *Improve user validator 
+ *                              logical.
+ *                             *Realease Candidate. 
  *Version 1.0   2013/11/19     *Fix Bugs.
                                *Update servlet.
  *Version 1.0   2013/11/17     *Finish basic functions. 
@@ -16,7 +20,7 @@
  */
 
 /*Module Name: httpserv/servletor
- * Version   : 1.0
+ * Version   : 1.2
  * Brief Introduction:
  *    servletor is a dynamic web server for users to view.
  *    Everytime you visit: http://domain/ta/view, tomcat 

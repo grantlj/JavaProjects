@@ -1,9 +1,15 @@
 /*Project Name: Time Arranger
- *Version     : 1.0
+ *Version     : 1.2
  *Author:       Grant Liu
  *              Deng Jie
  *      
  *History     :
+ *Version 1.2   2013/11/22     *Complete the UI of TA.
+ *                             *Merge code.
+ *                             *Release Candidate ver.
+ *Version 1.1   2013/11/21     *Improve the security of
+ *                              FTP connection.
+ *                             *Fix Bugs.
  *Version 1.0   2013/11/17     *Finish basic functions. 
  *
  *Brief Introduction:
@@ -14,7 +20,7 @@
  */
 
 /*Module Name: submiter
- * Version   : 1.0
+ * Version   : 1.2
  * Brief Introduction:
  *   submiter is the main moudle of the client, which drive
  *   the user to submit his or her free time information to
@@ -121,7 +127,7 @@ public class submiter {
    * To download the arrange.info file to local disk,
    * then analysis it and set value for week, lecture, lesson.
    */
-	public static void getInfoFromFtp()
+	public static void getInfoFromFtp() throws InterruptedException
 	{
 		try {
 			ftp.download(arrangeFileName,arrangeFileName);
@@ -136,10 +142,11 @@ public class submiter {
 			UI.jcbSunN.setEnabled(true);
 			UI.jbUpl.setEnabled(true);
 		} catch (Exception e) {
-			UI.jlFTP.setText("Download arrangement failed.");
-			UI.jlFTP.setForeground(Color.RED);
-			e.printStackTrace();
-			System.exit(0);
+			//UI.jlFTP.setText("Download arrangement failed.");
+			//UI.jlFTP.setForeground(Color.RED);
+			//e.printStackTrace();
+			//System.exit(0);
+			UI.showWarning("Download arrangement failed");
 		}
 		
 		File file=new File(arrangeFileName);
@@ -155,8 +162,9 @@ public class submiter {
 			//Logger("Analysis arrangement file successfully.");
 		} catch (FileNotFoundException e) {
 			//Logger("Analysis arrangement file unsuccessfully.");
-			e.printStackTrace();
-			System.exit(0);
+			//e.printStackTrace();
+			//System.exit(0);
+			UI.showWarning("Analysis arrangement file failed.");
 		}
 		
 	    	
@@ -222,18 +230,19 @@ public class submiter {
 	/*uploadFileToFtp()
 	 * Upload user's .dat file to ftp server.
 	 */
-	public static void uploadFileToFtp(String str)
+	public static void uploadFileToFtp(String str) throws InterruptedException
 	{
 		try {
 			ftp.upload(str);
-			UI.jlFTP.setText("Upload file successful.");
+			UI.jlFTP.setText("Uploaded file successful.");
 			UI.jlFTP.setForeground(Color.BLUE);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.exit(0);
-			UI.jlFTP.setText("Upload file failed.");
-			UI.jlFTP.setForeground(Color.RED);
+			//e.printStackTrace();
+			//System.exit(0);
+			//UI.jlFTP.setText("Upload file failed.");
+			//UI.jlFTP.setForeground(Color.RED);
+			UI.showWarning("Upload file failed");
 		}
 	}
 	
@@ -241,6 +250,7 @@ public class submiter {
     /*main()
      * Program run from here.
      */
+	/*
 	public static void main(String[] args) throws Exception
 	{
 		initProgram();
@@ -252,4 +262,5 @@ public class submiter {
 		//saveToFile(week+"_"+username+".dat");
 		//uploadFileToFtp(week+"_"+username+".dat");
 	}
+	*/
 }

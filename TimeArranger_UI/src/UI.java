@@ -1,3 +1,32 @@
+/*Project Name: Time Arranger
+ *Version     : 1.2
+ *Author:       Grant Liu
+ *              Deng Jie
+ *      
+ *History     :
+ *Version 1.2   2013/11/22     *Complete the UI of TA.
+ *                             *Merge code.
+ *                             *Release Candidate ver.
+ *Version 1.1   2013/11/21     *Improve the security of
+ *                              FTP connection.
+ *                             *Fix Bugs.
+ *Version 1.0   2013/11/17     *Finish basic functions. 
+ *
+ *Brief Introduction:
+ *   Time Arranger is a program to simplify the process 
+ *   of arranging the time for lecture high efficiently.
+ *   The program is based on C/S frame, with the tech of
+ *   Ftp and Servlet in Java language.   
+ */
+
+/*Module Name: UI
+ * Version   : 1.2
+ * Brief Introduction:
+ *    UI is the user-interface of Time Arranger, which uses
+ *    the Swing and AWT to create the frame.
+ *    This part is mainly done by Deng Jie.
+ */
+
 import java.awt.Color;
 import java.awt.event.*;
 import java.io.IOException;
@@ -34,9 +63,9 @@ public class UI extends JFrame
 	public static JLabel jlSat=new JLabel();
 	public static JLabel jlSun=new JLabel();
 	
-	public static JLabel jlweek=new JLabel();
-	public static JLabel jllectrue=new JLabel();
-	public static JLabel jllesson=new JLabel();
+	public static JLabel jlweek=new JLabel("",JLabel.CENTER);
+	public static JLabel jllectrue=new JLabel("",JLabel.CENTER);
+	public static JLabel jllesson=new JLabel("",JLabel.CENTER);
 	
 	public static JTextField jtfUser=new JTextField();
 	public static JPasswordField jpfPsd=new JPasswordField();
@@ -56,11 +85,12 @@ public class UI extends JFrame
 		submiter.pwd=jpfPsd.getText();
 		if (submiter.login())
 		{
-			submiter.connectFtp();
+		
 			jf.setSize(447, 196);
 			jlWrong.setText("");
 			jtfUser.setEnabled(false);
 			jpfPsd.setEnabled(false);
+			submiter.connectFtp();
 		}
 		else
 		{
@@ -114,11 +144,11 @@ public class UI extends JFrame
 			}
 			catch(IOException ioe)
 			{
-				ioe.printStackTrace();
+				//ioe.printStackTrace();
 			}
 			catch (InterruptedException se)
 			{
-				se.printStackTrace();
+				//se.printStackTrace();
 			}
 		}		
 	}
@@ -129,8 +159,12 @@ public class UI extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			submiter.getInfoFromFtp();
-			submiter.showClassInfo();
+			try {
+				submiter.getInfoFromFtp();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				//e1.printStackTrace();
+			}
 		}
 	}
 	public UI.JBDlPress jbDlPress=new UI.JBDlPress();
@@ -248,7 +282,23 @@ public class UI extends JFrame
 		}
 	}
 	public JCBSunN jcbSunNCheck=new JCBSunN();
-	
+
+//Error handler.-----------------------------------------------------------------------------------------------
+//Give warning and exit in 5 SEC.
+public static void showWarning(String s) throws InterruptedException
+{
+  jlPro.setText("Error:"+s);
+  jlPro.setForeground(Color.RED);
+  for (int i=0;i<=5;i++)
+  {
+	  jlFTP.setText("Program will exit after: "+i+" secs");
+	  jlFTP.setForeground(Color.RED);
+	  Thread.sleep(1000);
+	  
+  }
+  System.exit(0);
+}
+
 //This is layouts info.----------------------------------------------------------------------------------------
 	public UI()
 	{	
@@ -341,7 +391,7 @@ public class UI extends JFrame
 	}
 	
 	
-	public static void main(String args[])
+	public static void main(String args[]) throws InterruptedException
 	{
 		new UI();
 	}
