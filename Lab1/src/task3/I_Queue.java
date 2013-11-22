@@ -2,20 +2,23 @@ package task3;
 
 import java.io.PrintStream;
 
-public class I_Queue implements Queue{
+public class I_Queue<T> implements Queue<T>{
     
+	@SuppressWarnings("rawtypes")
 	private SnocList head,tail,now;
 	private boolean empFlag=true;
 	
-	public char peek() throws MyException {
+	@SuppressWarnings("unchecked")
+	public T peek() throws MyException {
 		if (empFlag)
 			throw new MyException("Queue is empty.");
 		else
-			return head.c;
+			return (T) head.c;
 	}
 
 	public void dequeue() {
-	  if (head.l!=null)
+	if (empFlag) return ; 
+	if (head.l!=null)
 		head=head.l;
 	  else
 	  {
@@ -25,7 +28,8 @@ public class I_Queue implements Queue{
 	}
 
 
-	public void enqueue(char c) {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void enqueue(T c) {
 	  now=new SnocList(c);
       if (empFlag)
       {
@@ -47,6 +51,7 @@ public class I_Queue implements Queue{
 	}
 
 
+	@SuppressWarnings("rawtypes")
 	public void show(PrintStream p) {
 		if (!empFlag) {
 		  p.print("--head--");
@@ -63,7 +68,8 @@ public class I_Queue implements Queue{
 			p.println("Queue is empty.");
 		}
 	
-	public I_Queue(char c)
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public I_Queue(T c)
 	{
 		if (empFlag) 
 		{

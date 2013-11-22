@@ -3,11 +3,13 @@ package task4;
 import java.io.PrintStream;
 
 
-public class I_PriQueue implements PriQueue{
+public class I_PriQueue<T> implements PriQueue<T>{
+	@SuppressWarnings("rawtypes")
 	private PList lis;
-	public char next() throws MyException {
-		char c=lis.get(lis.getHigh(),lis.getCountAt(lis.getHigh()));
-		if (c==-1) 
+	public T next() throws MyException {
+		@SuppressWarnings("unchecked")
+		T c=(T) lis.get(lis.getHigh(),lis.getCountAt(lis.getHigh()));
+		if (c==null) 
 			throw new MyException("Queue is empty.");
 		return c;
 	}
@@ -16,7 +18,7 @@ public class I_PriQueue implements PriQueue{
 		lis.delete(lis.getHigh());
 	}
 
-	public void insertItem(int pri, char c) {
+	public void insertItem(int pri, T c) {
 		lis.add(pri, c);
 	}
 
@@ -35,7 +37,8 @@ public class I_PriQueue implements PriQueue{
 	  }
 	}
 	
-    public I_PriQueue(){
+    @SuppressWarnings("rawtypes")
+	public I_PriQueue(){
     	lis=new PList();
     }
 	

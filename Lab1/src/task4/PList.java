@@ -1,9 +1,9 @@
 package task4;
 
-public class PList {
+public class PList<T> {
   public final static int PioMax=5;  //0,1,2,3,4
-  public final static int EleMax=11; 
-  private char element[][];
+  public final static int EleMax=100; 
+  private Object element[][];
   private int  elementCount[];
 		  private char defaultChar=127;
   private int count;
@@ -37,7 +37,7 @@ public class PList {
 	  return 0;
   }
   
-  public void add(int pio,char c)
+  public void add(int pio,Object c)
   {
 	  if (pio<0)
 		  pio=0;
@@ -56,7 +56,7 @@ public class PList {
 	 }
 	 
 	  int p=0;
-	  while (c>=element[pio][p])
+	  while ( c.toString().compareTo(element[pio][p].toString())>0)
 		  p++;
 	
 	  for (int i=elementCount[pio];i>=p+1;i--)
@@ -67,11 +67,12 @@ public class PList {
 	  elementCount[pio]++;
   }
   
-  public char get(int pio,int i)
+  @SuppressWarnings("unchecked")
+public T get(int pio,int i)
   {
 	 if (pio<0 || pio>4 || elementCount[pio]<1)
-		 return (char) -1;
-	  return element[pio][i];
+		 return null;
+	  return (T)element[pio][i];
   }
   
   public void delete(int pio)
@@ -85,7 +86,7 @@ public class PList {
   
   public PList()
   {
-	  element=new char[PioMax][EleMax];
+	  element=new Object[PioMax][EleMax];
 	  elementCount=new int[PioMax];
 	  clear();
   }

@@ -5,31 +5,34 @@ import java.util.ArrayList;
 
 
 
-public class I_Stack implements Stack{
+public class I_Stack<T> implements Stack<T>{
     @SuppressWarnings("rawtypes")
 	private ArrayList lis;
-	public char top() throws MyException {
+	@SuppressWarnings("unchecked")
+	public T top() throws MyException {
 	  if (lis.isEmpty())
 		  throw new MyException("Stack Is Empty");
-		  
-	  return (Character) lis.get(lis.size()-1);
+	  T re=(T) lis.get(lis.size()-1);
+	  lis.remove(lis.size()-1);
+	  return re;
 	}
 
 
 
 	public void pop() {
-		lis.remove(lis.size()-1);
+		if (lis.size()!=0)
+			lis.get(lis.size()-1);
 	}
 
 
 	@SuppressWarnings("unchecked")
-	public void push(char c) {
+	public void push(T c) {
 	 lis.add(c);	
 	}
 
 	
 	public boolean isEmpty() {
-	  return lis.isEmpty();	
+	  return lis.isEmpty();
 	}
 
 

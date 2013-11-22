@@ -5,14 +5,16 @@ import java.io.PrintStream;
 //import java.io.PrintStream;
 
 
-public class I_Stack implements Stack{
-    private List lis;
+public class I_Stack<T> implements Stack<T>{
+    @SuppressWarnings("rawtypes")
+	private List lis;
 	
-    public char top() throws MyException{
+    @SuppressWarnings("unchecked")
+	public T top() throws MyException{
 	if (lis.getCount()-1<0)
 		throw new MyException("Stack Is Empty");
 	else
-		return lis.get(lis.getCount()-1);
+		return (T)lis.get(lis.getCount()-1);
 	}
 
 
@@ -22,7 +24,7 @@ public class I_Stack implements Stack{
 	}
 
 
-	public void push(char c) {
+	public void push(T c) {
 	if (lis.add(c, lis.getCount())==false) System.out.println("push error:"+c+" count:"+lis.getCount());	
 	}
 
@@ -45,6 +47,7 @@ public class I_Stack implements Stack{
 		 
    }
 	
+	@SuppressWarnings("rawtypes")
 	public I_Stack()
 	{
 		lis=new List();
