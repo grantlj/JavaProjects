@@ -1,11 +1,12 @@
 package skiplist;
 
-public class Slnode {
-  public int val;
+public class Slnode<T> {
+  public Object val;
   public int pCount;
   public static int pMaxCount=3;
   public int index;
-  public Slnode[] p;
+  @SuppressWarnings("rawtypes")
+public Slnode[] p;
   
   private void generatePInfo(int index)
   {
@@ -19,7 +20,7 @@ public class Slnode {
 		  pCount=1;
 		
   }
-  Slnode(int val, int index)
+  Slnode(Object val, int index)
   {
 	  this.val=val;
 	  this.index=index;

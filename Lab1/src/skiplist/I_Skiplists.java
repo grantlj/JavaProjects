@@ -2,11 +2,13 @@ package skiplist;
 
 import java.io.PrintStream;
 
-public class I_Skiplists implements Skiplists{
-	private static boolean empFlag=true;
-	private static int nodeCount=0;
+public class I_Skiplists<T> implements Skiplists<T>{
+	private boolean empFlag=true;
+	private int nodeCount=0;
+	@SuppressWarnings("rawtypes")
 	Slnode head,t;
     
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void refreshNode(Slnode pre,Slnode t)
     {
     	//refresh and insert the node.
@@ -62,28 +64,30 @@ public class I_Skiplists implements Skiplists{
     }
 	
     
-	private Slnode findPosition(int val,Slnode nowP,int level)
+	@SuppressWarnings("rawtypes")
+	private Slnode findPosition(Object val,Slnode nowP,int level)
 	{
 		if (level==1) 
 				{
 	              if (nowP.index==nodeCount-1)                                    //The last point.
 	            	  return nowP; 
-	            	  else if (nowP.val<val && ( nowP.p[level-1]==null || nowP.p[level-1].val>=val ))
+	            	  else if (nowP.val.toString().compareTo(val.toString())<0 && (  nowP.p[level-1].val.toString().compareTo(val.toString())>0 || nowP.p[level-1].val.toString().equals(val.toString())|| nowP.p[level-1]==null ))
 	            	          return nowP;                                        //Found the exact point to insert.
-	            	  else return findPosition(val,nowP.p[level-1],level);  //Continue to search next point.				
+	            	  else return findPosition(val,nowP.p[level-1],level);        //Continue to search next point.				
 				}
 		else
 		{
 			//System.out.println("node count:"+(nodeCount-1));
 			if (nowP.index==nodeCount-1)                                          //The last point.
 				return nowP;
-			else if (nowP.val<val && (nowP.p[level-1]==null || nowP.p[level-1].val>=val))                    //To a low level.
+			else if (nowP.val.toString().compareTo(val.toString())<0 && (nowP.p[level-1]==null || nowP.p[level-1].val.toString().equals(val.toString()) || nowP.p[level-1].val.toString().compareTo(val.toString())>0))                    //To a low level.
 				return findPosition(val,nowP,level-1);
 			else return findPosition(val,nowP.p[level-1],level);                  //Continue to next point in this level.
 		}
 	}
 	
-	public void insert(int val) {
+	@SuppressWarnings("rawtypes")
+	public void insert(Object val) {
 
 		if (nodeCount==0)
 		{
@@ -106,7 +110,12 @@ public class I_Skiplists implements Skiplists{
 	}
 
 
-	public void delete(int index) {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void delete(int index) throws MyException {
+		if (index<0 || index>nodeCount-1) 
+		{
+			throw new MyException("invalid delete request.");
+		}
 		Slnode tmph=head;
 		for (int i=0;i<index-1;i++)
 			tmph=tmph.p[0];
@@ -156,7 +165,7 @@ public class I_Skiplists implements Skiplists{
 		
 	}
 
-	public int search(int val) {
+	public int search(Object val) {
 		
 		int p=findPosition(val,head,head.pCount).index+1;
 		if (p==nodeCount)
@@ -172,21 +181,22 @@ public class I_Skiplists implements Skiplists{
 	}
 
 
+	@SuppressWarnings("rawtypes")
 	public void show(PrintStream p) {
 		System.out.println();
 		System.out.println("====================Node Count:"+nodeCount+"========================");
 		Slnode tmph=head;
 		do
 		{
-			System.out.print("NO."+tmph.index+" ");
-			System.out.print("PCount:"+tmph.pCount+" val:"+tmph.val+" next:");
+			p.print("NO."+tmph.index+" ");
+			p.print("PCount:"+tmph.pCount+" val:"+tmph.val+" next:");
 			for (int i=1;i<=tmph.pCount;i++)
 		      if (tmph.p[i-1]!=null) 
-		    	  System.out.print(tmph.p[i-1].index+" ");
-			System.out.println();
+		    	  p.print(tmph.p[i-1].index+" ");
+			p.println();
 			tmph=tmph.p[0];
 		}
-		while (tmph.p[0]!=null);
+		while (tmph!=null);
 	
 		
 	}
