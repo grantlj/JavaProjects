@@ -71,25 +71,27 @@ public class LibSystem {
 private static void displayUser() {
 	// TODO Auto-generated method stub
 	System.out.println("User information:");
+	System.out.println("==================");
+	UserHandler.showUserInfo();
+	showMenu();
 	
 }
 
 private static void displayBook() {
 	// TODO Auto-generated method stub
 	System.out.println("Book information:");
+	System.out.println("===================");
+	AuthHandler.showBookInfo();
+	showMenu();
 	
 }
 
 private static void returnBook() {
 	// TODO Auto-generated method stub
 	System.out.println("Return book:");
+	System.out.println("===================");
 	
-}
-
-private static void issueBook() {
-	// TODO Auto-generated method stub
 	Scanner sc=new Scanner(System.in);
-	System.out.println("Issue book:");
 	String bookName;
 	String auName;
 	String userName;
@@ -104,22 +106,70 @@ private static void issueBook() {
     else
     {
     	String ret=AuthHandler.checkBook(bookName,auName);
-    	if (ret=="AVAIL")
+    	if (ret.equals(userName))
+    	{
+    		//Do return;
+    		 AuthHandler.unIssue(bookName,auName,userName);
+             UserHandler.unIssue(bookName,auName,userName);
+    	}
+    	else
+    	  if (ret.equals("AVAIL"))
+    	  {
+    		  //The book is not issued.
+    		  System.out.println("Book:"+bookName+" ,Author:"+auName+" has not been issued.");
+    	  }
+    	  else
+    	  {
+    		//Book info is not valid.
+  			System.out.println("Book:"+bookName+" ,Author:"+auName+" is not valid...");
+    	  }
+    }
+	showMenu();
+}
+
+private static void issueBook() {
+	// TODO Auto-generated method stub
+	Scanner sc=new Scanner(System.in);
+	System.out.println("Issue book:");
+	System.out.println("===================");
+	String bookName;
+	String auName;
+	String userName;
+	System.out.print("Enter the user name:");
+    userName=sc.nextLine();
+    System.out.print("Enter the book name:");
+    bookName=sc.nextLine();
+    System.out.print("Enter the book's author name:");
+    auName=sc.nextLine();
+    if (!UserHandler.checkUser(userName))
+    	System.out.println("User is not valid!");
+    else
+    {
+    	String ret=AuthHandler.checkBook(bookName,auName);
+    	if (ret.equals("AVAIL"))
     	{
     		//Do issue.
+    		System.out.println("Issue book:"+bookName+" ,Author:"+auName+" to:"+userName+" successfully...");
+            AuthHandler.issue(bookName,auName,userName);
+            UserHandler.issue(bookName,auName,userName);
     	}
     	else
     	{
-    		if (ret=="NOT AVAIL")
+    		if (ret.equals("NOT VALID"))
     		{
     			//Book info is not valid.
+    			System.out.println("Book:"+bookName+" ,Author:"+auName+" is not valid...");
     		}
     		else 
     		{
     			//IT HAS BEEN ISSUED.
+    			System.out.println("Book:"+bookName+" ,Author:"+auName+" has been issued by:");
+    			System.out.println(ret);
+    			System.out.println("Please wait for his return...");
     		}
     	}
     }
+    showMenu();
 }
 
 private static void loadFromFile() throws FileNotFoundException

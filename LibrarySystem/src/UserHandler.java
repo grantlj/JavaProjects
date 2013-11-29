@@ -29,6 +29,41 @@ public class UserHandler {
 			  return true;
 	  return false;
 	}
+	
+	public static void issue(String bookName,String auName,String userName)
+	{
+		int p=0;
+		for (int i=0;i<s.size();i++)
+			if (userName.equals(s.get(i).usrFir+" "+s.get(i).usrSur))
+			{
+				p=i;
+				break;
+			}
+		s.get(p).holding++;
+		s.get(p).book[s.get(p).holding]=bookName;
+		s.get(p).bookau[s.get(p).holding]=auName;
+	}
+	
+	public static void unIssue(String bookName,String auName, String userName)
+	{
+		int p=0;
+		for (int i=0;i<s.size();i++)
+			if (userName.equals(s.get(i).usrFir+" "+s.get(i).usrSur))
+			{
+				p=i;
+				break;
+			}
+		int p2=0;
+		for (int i=0;i<s.get(p).holding;i++)
+			if (s.get(p).book[i].equals(bookName) && s.get(p).bookau[i].equals(auName))
+			{
+				p2=i;
+				break;
+			}
+		for (int i=p2;i<UserInfo.holdMax-1;i++)
+			s.get(p).book[i]=s.get(p).book[i+1];
+		s.get(p).holding--;
+	}
 
 		  
 }

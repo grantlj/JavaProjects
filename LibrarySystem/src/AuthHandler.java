@@ -59,8 +59,35 @@ public class AuthHandler {
 		}
 		return "NOT VALID";
 	}
-
-			  
+	
+	public static void issue(String bookName,String auName,String userName)
+	{
+		int p=0;
+		for (int i=0;i<s.size();i++)
+			if (auName.equals(s.get(i).auFir+" "+s.get(i).auSur))
+			{
+				p=i;
+				break;
+			}
+		for (int i=0;i<s.get(p).bookCount;i++)
+			if (s.get(p).book[i].equals(bookName))
+			  s.get(p).owner[i]=userName;
+		
+	}
+	
+	public static void unIssue(String bookName,String auName, String userName)
+	{
+		int p=0;
+		for (int i=0;i<s.size();i++)
+			if (auName.equals(s.get(i).auFir+" "+s.get(i).auSur))
+			{
+				p=i;
+				break;
+			}
+		for (int i=0;i<s.get(p).bookCount;i++)
+			if (s.get(p).book[i].equals(bookName))
+			  s.get(p).owner[i]="AVAIL";
+	}
 	
 
 }
