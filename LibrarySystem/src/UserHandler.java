@@ -19,13 +19,29 @@ public class UserHandler {
 	for (int i=0;i<s.size();i++)
 	{
 		System.out.println("Username:"+s.get(i).usrFir+" "+s.get(i).usrSur);
+		System.out.println("=======Book Info:========");
+		for (int j=0;j<s.get(i).holding;j++)
+		{
+			System.out.println("NO."+(j+1)+": Book name:"+s.get(i).book[j]);
+			System.out.println("Author:"+s.get(i).bookau[j]);
+			System.out.println();
+		}
+		System.out.println();
 	}
    }
    
-	public static boolean checkUser(String userName)
+	public static boolean checkUserIssue(String userName)
 	{
 	  for (int i=0;i<s.size();i++)
 		  if (userName.equals(s.get(i).usrFir+" "+s.get(i).usrSur) && s.get(i).holding<UserInfo.holdMax)
+			  return true;
+	  return false;
+	}
+	
+	public static boolean checkUserUnissue(String userName)
+	{
+	  for (int i=0;i<s.size();i++)
+		  if (userName.equals(s.get(i).usrFir+" "+s.get(i).usrSur) && s.get(i).holding>=1)
 			  return true;
 	  return false;
 	}
@@ -39,9 +55,10 @@ public class UserHandler {
 				p=i;
 				break;
 			}
-		s.get(p).holding++;
+	
 		s.get(p).book[s.get(p).holding]=bookName;
 		s.get(p).bookau[s.get(p).holding]=auName;
+		s.get(p).holding++;
 	}
 	
 	public static void unIssue(String bookName,String auName, String userName)

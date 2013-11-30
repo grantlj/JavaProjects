@@ -1,0 +1,142 @@
+
+Function Menu
+===========================
+i-Issue a book to user.
+r-Return a book to system.
+b-Display book information.
+u-Display user information.
+f-Save and exit.
+Choose a function to coutinue:i/r/b/u/f.i
+Issue book:
+===================
+Enter the user name:Anna Smith
+Enter the book name:Java Gently
+Enter the book's author name:Judith Bishop
+Issue book:Java Gently ,Author:Judith Bishop to:Anna Smith successfully...
+
+Function Menu
+===========================
+i-Issue a book to user.
+r-Return a book to system.
+b-Display book information.
+u-Display user information.
+f-Save and exit.
+Choose a function to coutinue:i/r/b/u/f.b
+Book information:
+===================
+Author:Andre Arnold
+NO.1:Finite Transition Systems
+State:AVAIL
+
+Author:Judith Bishop
+NO.1:Java Gently
+State:Anna Smith
+
+Author:Stephen J. Hartley
+NO.1:Concurrent Programming
+State:AVAIL
+
+Author:Wolfgang Reisig
+NO.1:Petri Nets
+State:AVAIL
+
+Author:C. R. Snow
+NO.1:Concurrent Programming
+State:AVAIL
+
+
+Function Menu
+===========================
+i-Issue a book to user.
+r-Return a book to system.
+b-Display book information.
+u-Display user information.
+f-Save and exit.
+Choose a function to coutinue:i/r/b/u/f.u
+User information:
+==================
+Username:Zoe Brown
+=======Book Info:========
+Username:Anna Smith
+=======Book Info:========
+NO.1: Book name:Java Gently
+Author:Judith Bishop
+
+Username:John Smith
+=======Book Info:========
+Username:John Williams
+=======Book Info:========
+
+Function Menu
+===========================
+i-Issue a book to user.
+r-Return a book to system.
+b-Display book information.
+u-Display user information.
+f-Save and exit.
+Choose a function to coutinue:i/r/b/u/f.r
+Return book:
+===================
+Enter the user name:Anna Smith
+Enter the book name:Java Gently
+Enter the book's author name:Judith Bishop
+Return book:Java Gently ,Author:Judith Bishop by:Anna Smith successfully...
+
+Function Menu
+===========================
+i-Issue a book to user.
+r-Return a book to system.
+b-Display book information.
+u-Display user information.
+f-Save and exit.
+Choose a function to coutinue:i/r/b/u/f.b
+Book information:
+===================
+Author:Andre Arnold
+NO.1:Finite Transition Systems
+State:AVAIL
+
+Author:Judith Bishop
+NO.1:Java Gently
+State:AVAIL
+
+Author:Stephen J. Hartley
+NO.1:Concurrent Programming
+State:AVAIL
+
+Author:Wolfgang Reisig
+NO.1:Petri Nets
+State:AVAIL
+
+Author:C. R. Snow
+NO.1:Concurrent Programming
+State:AVAIL
+
+
+Function Menu
+===========================
+i-Issue a book to user.
+r-Return a book to system.
+b-Display book information.
+u-Display user information.
+f-Save and exit.
+Choose a function to coutinue:i/r/b/u/f.u
+User information:
+==================
+Username:Zoe Brown
+=======Book Info:========
+Username:Anna Smith
+=======Book Info:========
+Username:John Smith
+=======Book Info:========
+Username:John Williams
+=======Book Info:========
+
+Function Menu
+===========================
+i-Issue a book to user.
+r-Return a book to system.
+b-Display book information.
+u-Display user information.
+f-Save and exit.
+Choose a function to coutinue:i/r/b/u/f.

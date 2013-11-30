@@ -37,9 +37,14 @@ public class AuthHandler {
 	{
 		for (int i=0;i<s.size();i++)
 		{
-			System.out.println("Author:"+s.get(i).auSur+"       "+s.get(i).bookCount);
+			System.out.println("Author:"+s.get(i).auFir+" "+s.get(i).auSur);
 			for (int j=0;j<s.get(i).bookCount;j++)
-				System.out.println("NO."+j+":"+s.get(i).book[j]);
+			{
+				System.out.println("NO."+(j+1)+":"+s.get(i).book[j]);
+				System.out.println("State:"+s.get(i).owner[j]);
+				System.out.println();
+			}
+			
 		}
 	}
 	
@@ -50,11 +55,8 @@ public class AuthHandler {
 			if (auName.equals(s.get(i).auFir+" "+s.get(i).auSur))
 			{
 				for (int j=0;j<s.get(i).bookCount;j++)
-					if (s.get(i).book[j]==bookName && s.get(i).owner[j]=="AVAIL") 
-						return "AVAIL";
-					else 
-						if (s.get(i).book[j]==bookName && s.get(i).owner[j]!="AVAIL")
-							return s.get(i).owner[j];
+				  if ((s.get(i).book[j]).equals(bookName))
+					  return s.get(i).owner[j];
 			}
 		}
 		return "NOT VALID";

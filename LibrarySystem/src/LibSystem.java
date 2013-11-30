@@ -1,13 +1,9 @@
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-
-
 public class LibSystem {
-  public static String fileName="test.txt";
+  public static String fileName="test_input.txt";
   
   private static boolean isValidMenuChoice(char c)
   {
@@ -19,10 +15,11 @@ public class LibSystem {
   
   public static void showMenu()
   {
+	System.out.println();
 	System.out.println("Function Menu");
 	System.out.println("===========================");
     System.out.println("i-Issue a book to user.");
-	System.out.println("r-Return a book to sytem.");
+	System.out.println("r-Return a book to system.");
 	System.out.println("b-Display book information.");
 	System.out.println("u-Display user information.");
 	System.out.println("f-Save and exit.");
@@ -101,8 +98,8 @@ private static void returnBook() {
     bookName=sc.nextLine();
     System.out.print("Enter the book's author name:");
     auName=sc.nextLine();
-    if (!UserHandler.checkUser(userName))
-    	System.out.println("User is not valid!");
+    if (!UserHandler.checkUserUnissue(userName))
+    	System.out.println("User is not valid!(Wrong name or holding no book)");
     else
     {
     	String ret=AuthHandler.checkBook(bookName,auName);
@@ -111,6 +108,7 @@ private static void returnBook() {
     		//Do return;
     		 AuthHandler.unIssue(bookName,auName,userName);
              UserHandler.unIssue(bookName,auName,userName);
+             System.out.println("Return book:"+bookName+" ,Author:"+auName+" by:"+userName+" successfully...");
     	}
     	else
     	  if (ret.equals("AVAIL"))
@@ -141,8 +139,8 @@ private static void issueBook() {
     bookName=sc.nextLine();
     System.out.print("Enter the book's author name:");
     auName=sc.nextLine();
-    if (!UserHandler.checkUser(userName))
-    	System.out.println("User is not valid!");
+    if (!UserHandler.checkUserIssue(userName))
+    	System.out.println("User is not valid!(Wrong name or already holding 3 books)");
     else
     {
     	String ret=AuthHandler.checkBook(bookName,auName);
