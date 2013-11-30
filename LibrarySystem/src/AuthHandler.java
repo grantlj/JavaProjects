@@ -1,9 +1,18 @@
-
+/*AuthHandler.java
+ * =========================================
+ * The main class to handle author and books.
+ */
 public class AuthHandler {
 	public static int AuthCount=0;
 	public static int AuthMax=100;
     public static  SortedArrayList<AuthorInfo> s=new SortedArrayList<AuthorInfo>(100);
 	
+    /*newInfo(String, String)
+     * handle a new book:
+     * if the author is new, then add it to AuthorInfo,
+     * else just assign the new book info to an existed 
+     * author.
+     */
     public static void newInfo(String line1, String line2)
 	{
 		  String auSur,auFir;
@@ -33,6 +42,9 @@ public class AuthHandler {
 		  }
 	}
 	
+    /*showUserInfo()
+     * print out authors' information to screen.
+     */
 	public static void showBookInfo()
 	{
 		for (int i=0;i<s.size();i++)
@@ -48,6 +60,9 @@ public class AuthHandler {
 		}
 	}
 	
+	/*checkBook(String,String)
+	 * to check whether a book exists.
+	 */
 	public static String checkBook(String bookName, String auName)
 	{
 		for (int i=0;i<s.size();i++)
@@ -62,6 +77,9 @@ public class AuthHandler {
 		return "NOT VALID";
 	}
 	
+	/*issue(String,String,String)
+	 * to issue a book to an user and refresh author info.
+	 */
 	public static void issue(String bookName,String auName,String userName)
 	{
 		int p=0;
@@ -77,6 +95,9 @@ public class AuthHandler {
 		
 	}
 	
+	/*unIssue(String,String,String)
+	 * to Unissue a book to an user and refresh author info.
+	 */
 	public static void unIssue(String bookName,String auName, String userName)
 	{
 		int p=0;

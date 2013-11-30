@@ -1,3 +1,8 @@
+/*SortedArrayList.java
+ * =========================================
+ * SortedArrayList is the core to implement
+ * the sort function of arraylist.
+ */
 
 
 import java.util.*;

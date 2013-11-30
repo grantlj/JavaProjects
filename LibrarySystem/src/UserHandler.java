@@ -1,8 +1,16 @@
-
+/*UserHandler.java
+ * =========================================
+ * The main class to handle user.
+ */
 public class UserHandler {
 	public static int UserCount=0;
 	public static int UserMax=100;
     public static  SortedArrayList<UserInfo> s=new SortedArrayList<UserInfo>(100);
+    
+    /*newInfo(String)
+     * handle a new user, get his surname and 
+     * first name, then save to UserInfo.
+     */
     public static void newInfo(String line1)
  	{
  		  String usrSur,usrFir;
@@ -14,6 +22,9 @@ public class UserHandler {
  		  UserCount++;
  	}
     
+   /*showUserInfo()
+    * print out users' information to screen.
+    */
    public static void showUserInfo()
    {
 	for (int i=0;i<s.size();i++)
@@ -30,6 +41,9 @@ public class UserHandler {
 	}
    }
    
+   /*checkUserIssue(String)
+    * to check whether a user can issue a book.
+    */
 	public static boolean checkUserIssue(String userName)
 	{
 	  for (int i=0;i<s.size();i++)
@@ -38,6 +52,9 @@ public class UserHandler {
 	  return false;
 	}
 	
+	/*checkUserUnissue(String)
+	 * to check whether a user can unissue a book.
+	 */
 	public static boolean checkUserUnissue(String userName)
 	{
 	  for (int i=0;i<s.size();i++)
@@ -46,6 +63,9 @@ public class UserHandler {
 	  return false;
 	}
 	
+	/*issue(String,String,String)
+	 * to issue a book to an user and refresh his info.
+	 */
 	public static void issue(String bookName,String auName,String userName)
 	{
 		int p=0;
@@ -61,6 +81,9 @@ public class UserHandler {
 		s.get(p).holding++;
 	}
 	
+	/*unIssue(String,String,String)
+	 * to UNissue a book to an user and refresh his info.
+	 */
 	public static void unIssue(String bookName,String auName, String userName)
 	{
 		int p=0;

@@ -1,10 +1,20 @@
+/*LibSystem.java
+ * =========================================
+ * The main class of the interactive system.
+ */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
 public class LibSystem {
+  
+  //fileName is the input file path.
   public static String fileName="test_input.txt";
   
+  /*isValidMenuChoce(char)
+   * to check whether a menu choice from input
+   * is vaild or not.
+   */
   private static boolean isValidMenuChoice(char c)
   {
 	  if (c=='i' || c=='r' || c=='b' || c=='u' || c=='f')
@@ -13,6 +23,10 @@ public class LibSystem {
 		  return false;
   }
   
+  /*showMenu()
+   * to show the main menu and wait for user's 
+   * input.
+   */
   public static void showMenu()
   {
 	System.out.println();
@@ -59,12 +73,18 @@ public class LibSystem {
   }
 
   
+  /*exit()
+   * exit program without save.
+   */
   private static void exit() {
 	// TODO Auto-generated method stub
 	System.exit(0);
 	
 }
 
+  /*displayUser()
+   * show user information.
+   */
 private static void displayUser() {
 	// TODO Auto-generated method stub
 	System.out.println("User information:");
@@ -74,6 +94,9 @@ private static void displayUser() {
 	
 }
 
+  /*displayBook()
+   * show book information.
+   */
 private static void displayBook() {
 	// TODO Auto-generated method stub
 	System.out.println("Book information:");
@@ -83,6 +106,9 @@ private static void displayBook() {
 	
 }
 
+   /*returnBook()
+    * return a lent out book to library.
+    */
 private static void returnBook() {
 	// TODO Auto-generated method stub
 	System.out.println("Return book:");
@@ -99,6 +125,7 @@ private static void returnBook() {
     System.out.print("Enter the book's author name:");
     auName=sc.nextLine();
     if (!UserHandler.checkUserUnissue(userName))
+    	//user doesn't exist or holding no books.
     	System.out.println("User is not valid!(Wrong name or holding no book)");
     else
     {
@@ -140,6 +167,7 @@ private static void issueBook() {
     System.out.print("Enter the book's author name:");
     auName=sc.nextLine();
     if (!UserHandler.checkUserIssue(userName))
+    	//user doesn't exist or has held 3 books.
     	System.out.println("User is not valid!(Wrong name or already holding 3 books)");
     else
     {
@@ -160,7 +188,7 @@ private static void issueBook() {
     		}
     		else 
     		{
-    			//IT HAS BEEN ISSUED.
+    			//IT HAS BEEN ISSUED to others.
     			System.out.println("Book:"+bookName+" ,Author:"+auName+" has been issued by:");
     			System.out.println(ret);
     			System.out.println("Please wait for his return...");
@@ -170,12 +198,16 @@ private static void issueBook() {
     showMenu();
 }
 
+  /*loadFromFile()
+   * load book info and user info from testfile.
+   */
 private static void loadFromFile() throws FileNotFoundException
 {
 	File file=new File(fileName);
 	Scanner sc=new Scanner(file);
     int bookCount=sc.nextInt();
     sc.nextLine();
+    //analysis and save book info.
     for (int i=0;i<bookCount;i++)
     {
     	String line1=sc.nextLine();
@@ -184,6 +216,7 @@ private static void loadFromFile() throws FileNotFoundException
     }
     int usrCount=sc.nextInt();
     sc.nextLine();
+   //analysis ans save user info.
     for (int i=0;i<usrCount;i++)
     {
     	String line1=sc.nextLine();
