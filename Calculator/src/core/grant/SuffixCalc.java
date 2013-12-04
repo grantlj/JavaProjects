@@ -2,7 +2,8 @@ package core.grant;
 
 public class SuffixCalc {
     private String mid;
-    private int mode;                             //1 is integer;2 is double
+    @SuppressWarnings("unused")
+	private int mode;                             //1 is integer;2 is double
     private double[] nums;
     public static final int numsMax=100;
     private int numsCount;
@@ -106,9 +107,6 @@ public class SuffixCalc {
 	{
 		if (numsCount!=1)
 			return "ERROR";
-		if (mode==1) 
-			return String.valueOf((int) nums[0]);
-		else 
 			return String.valueOf(nums[0]);
 	}
 }

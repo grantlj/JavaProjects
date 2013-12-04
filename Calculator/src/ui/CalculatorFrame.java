@@ -15,6 +15,7 @@
 package ui;
 
 import java.awt.GridLayout;
+
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,8 +24,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import core.grant.*;
 
 
+import javax.swing.ButtonGroup;
 /*
  * We're going to be using the Swing package.
  * It provides a set of "lightweight" (all-Java language) components that
@@ -37,6 +40,7 @@ import java.util.Set;
  */
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -50,13 +54,15 @@ class CalculatorFrame extends JFrame {
 	private static final int NUMBER_PAD_HEIGHT = 5;
 	
 	private static final int CALCULATOR_WIDTH = 1;
-	private static final int CALCULATOR_HEIGHT = 2;
+	private static final int CALCULATOR_HEIGHT = 3;
+	
+	private int workMode=1;                   //1 is integer mode;2 is double mode.
 	
 	/* In the end this is what we're looking for
 	 *    -------------------
 	 *    |               0 |
 	 *    -------------------
-	 *    | ( | ) | % | AC  |
+	 *    | ( | ) | B | AC  |
 	 *    -------------------
 	 *    | 7 | 8 | 9 |  /  |
 	 *    -------------------
@@ -75,17 +81,27 @@ class CalculatorFrame extends JFrame {
 	 * for holding our buttons and operations and a mainPanel
 	 * which will serve as a container for both.
 	 */
-	private JPanel mainPanel, resultPanel, numberPanel;
+	private JPanel mainPanel, resultPanel, numberPanel,optPanel;
 	
 	private static Set<String> operators = new HashSet<String>();
 	private static Set<String> digits = new HashSet<String>();
+	Map<String, JButton> buttons = new HashMap<String, JButton>();
+	String[][] buttonOrder = new String[][]{
+
+			{ "(", ")", "B", "AC" },
+			{ "7", "8", "9", "/" },
+			{ "4", "5", "6", "*" },
+			{ "1", "2", "3", "-" },
+			{ "0", ".", "=", "+" }
+	};
+	
 	
 	// Static blocks work like a constructor, but are outside out constructor
 	// and typically only used for variable initialization. Lets create a set
 	// for our symbols and operators!
 	static {
 		
-		for(String x : new String[]{"(", ")", "+", "-", "*", "/", "%", "=", ".", "AC"})
+		for(String x : new String[]{"(", ")", "+", "-", "*", "/", "B", "=", ".", "AC"})
 			operators.add(x);
 		
 		for(int i = 0; i < 10; i++)
@@ -95,11 +111,7 @@ class CalculatorFrame extends JFrame {
 	// The indicates whether the next digit-press should clear the screen or not.
 	private boolean clearResultField = true;
 	
-	// The first number entered and stored into our calculator.
-	private Integer firstNumber = null;
-	
-	// The action/operation entered and stored into our calculator.
-	private String action = null;
+
 	
 	/* We could have made use of other things such as JLabel, JRadioButton, and JCheckBox etc */
 
@@ -109,7 +121,7 @@ class CalculatorFrame extends JFrame {
 	public CalculatorFrame() {
 
 		/* Set the title of the window. */
-		super("Really Simple Calculator");
+		super("My Calculator");
 
 		/* result panel */
 		resultPanel = new JPanel();
@@ -134,7 +146,7 @@ class CalculatorFrame extends JFrame {
 		
 		numberPanel.setLayout(new GridLayout(NUMBER_PAD_HEIGHT, NUMBER_PAD_WIDTH));
 		
-		Map<String, JButton> buttons = new HashMap<String, JButton>();
+
 		
 		// Lets build the buttons for digits.
 		for(String x : digits)
@@ -146,14 +158,7 @@ class CalculatorFrame extends JFrame {
 		
 		// The numbers will appear organized as we have them here. This does not have
 		// to be a 2-dimensional array, but it helps visualize things better.
-		String[][] buttonOrder = new String[][]{
-
-				{ "(", ")", "%", "AC" },
-				{ "7", "8", "9", "/" },
-				{ "4", "5", "6", "*" },
-				{ "1", "2", "3", "-" },
-				{ "0", ".", "=", "+" }
-		};
+		
 		
 		// Lets add our rows to the number panel!
 		for(int i = 0; i < NUMBER_PAD_HEIGHT; i++)
@@ -176,16 +181,34 @@ class CalculatorFrame extends JFrame {
 		for(String x : operators)
 			buttons.get(x).addActionListener(operatorListener);
 		
+		//The options panel.
+		optPanel=new JPanel();
+		ButtonGroup bg=new ButtonGroup();
+		JRadioButton jb1=new JRadioButton("Integer Mode");
+		JRadioButton jb2=new JRadioButton("Float   Mode");
+		bg.add(jb1);bg.add(jb2);
+		jb1.setSelected(true);
+		workMode=1;
+		buttons.get(buttonOrder[4][1]).setEnabled(false);
+		ActionListener OptListener=buildOptListener();
+	
+		jb1.addActionListener(OptListener);
+		jb2.addActionListener(OptListener);
+		
+		optPanel.add(jb1);optPanel.add(jb2);
+		
+		
 		/* we then create our mainPanel which we're going to add everything else to */
 		mainPanel = new JPanel();
 
 		/* we make it have 2 rows and 1 column so we can stack our panels */
 		mainPanel.setLayout(new GridLayout(CALCULATOR_HEIGHT, CALCULATOR_WIDTH));
 
-		/* and we add both in the order we want them to be displayed */
+		/* and we add both in t;
+		 * he order we want them to be displayed */
 		mainPanel.add(resultPanel);
+	    mainPanel.add(optPanel);
 		mainPanel.add(numberPanel);
-
 		/* We add our mainPanel to the JFrame */
 		add(mainPanel);
 
@@ -206,6 +229,35 @@ class CalculatorFrame extends JFrame {
 	 * 
 	 * @return An action listener for digits.
 	 */
+	
+	private ActionListener buildOptListener()
+	{
+		return new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JRadioButton j=(JRadioButton) e.getSource();
+				char c=j.getText().charAt(0);
+			    if (c=='I')
+			    {
+			    	workMode=1;
+			    	buttons.get(buttonOrder[4][1]).setEnabled(false);
+			    	resultField.setText("0");
+			    	
+			    }
+			    
+			    if (c=='F')
+			    {
+			    	workMode=2;
+			    	buttons.get(buttonOrder[4][1]).setEnabled(true);
+			    	resultField.setText("0");
+			    }
+				
+			}
+			
+		};
+	}
 	private ActionListener buildDigitListener(){
 		
 		return new ActionListener(){
@@ -247,121 +299,47 @@ class CalculatorFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				/*
-				 * We are only going to support +, -, *, / and % operations.
-				 * (, ) and . are beyond the needs of our basic calculator.
-				 */
-				
-				// Upon entering an operation, the next digits a user enters should clear the result field.
-				clearResultField = true;
+			
 				
 				JButton j = (JButton) e.getSource();
 				
 				String operator = j.getText();
 				
-				/*
-				 * This is not a very good way for identifying which operator was pressed (relying on the caption
-				 * text of the button), but it is good enough for demonstration purposes! We are 'switching' on the
-				 * first character of the operator button caption, because that's enough to identify the operation.
-				 * 
-				 * If this were used under Java 7, we would be able to switch on the String itself.
-				 */
+		
 				switch(operator.charAt(0)){
 				
 					case 'A': // The clear operation.
-						
+					{
 						resultField.setText("0");
-						action = null;
-						firstNumber = null;
 						
-						break; // If you are missing 'break', the next case will execute too!
+						
+						break; 
+					}
 					
 					case '=':
-						
-						if(action != null && firstNumber != null){
-							
-							// Parse the second number from the resultField text, perform the last-entered operation,
-							// and store the result back into the firstNumber field, over-writing the first number.
-							firstNumber = doOperation(firstNumber, Integer.parseInt(resultField.getText()), action);
-							
-							// Put the result into the resultField.
-							resultField.setText(firstNumber.toString());
-							action = null;
-						}
-						
+					{
+					          String ans=resultField.getText()+"="+new SuffixCalc(new MidToSuffix(resultField.getText()).getSuffix(),workMode).getAns(); 
+					          resultField.setText(ans);
+					          break;
+					}
+					case 'B':
+					{
+						if (resultField.getText().length()==1)
+							resultField.setText("0");
+						else
+							resultField.setText(resultField.getText().substring(0,resultField.getText().length()-1));
 						break;
+					}
 					
-					// This case 'falls through'. If +, -, %, / or * are entered, they all execute the same case!
-					case '+':
-					case '-':
-					case '%':
-					case '/':
-					case '*':
-						
-						// If there was already a pending operation, perform it. This can make calculations
-						// easier for the user to do quickly.
-						if(action != null && firstNumber != null){
-							
-							firstNumber = doOperation(firstNumber, Integer.parseInt(resultField.getText()), action);
-							//更改了！！！加入操作符显示！
-							resultField.setText(firstNumber.toString());
-							action = operator;
-						}
-						else {
-							
-							// Otherwise, parse and store the first number and operator.
-							//更改了！！！加入操作符显示！
-							firstNumber = Integer.parseInt(resultField.getText());
-							action = operator;
-							
-							break;
-						}
-						
-					default:
+				    default:
+				    {
+				       resultField.setText(resultField.getText()+operator);
+				       break;
+				    }
 							
 				}
 			}
 		};
 	}
 	
-	/**
-	 * Performs some operation on two arguments, based on a string representation of
-	 * that operation.
-	 * 
-	 * @param first The first argument to the operation.
-	 * @param second The second argument to the operation.
-	 * @param operation The operation to perform, represented as a string.
-	 * @return The result of the operation.
-	 */
-	private static int doOperation(int first, int second, String operation){
-		
-		/*
-		 * It would be better for 'operation' to be an enumerated type, but in the interest
-		 * of writing something simple that works, rather than something that resembles a compiler,
-		 * lets just do this.
-		 */
-		switch(operation.charAt(0)){
-		
-			case '+':
-				return first + second;
-				
-			case '-':
-				return first - second;
-				
-			case '*':
-				return first * second;
-				
-			case '/':
-				return first / second;
-				
-			case '%':
-				return first % second;
-			
-			// It would make more sense to put an exception here. This can
-			// be an exercise for the reader!
-			default:
-				return -1;
-		}
-	}
 }
