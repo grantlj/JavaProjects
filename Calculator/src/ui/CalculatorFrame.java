@@ -57,6 +57,8 @@ class CalculatorFrame extends JFrame {
 	private static final int CALCULATOR_HEIGHT = 3;
 	
 	private int workMode=1;                   //1 is integer mode;2 is double mode.
+	private boolean showing=false;
+	private boolean standby=true;
 	
 	/* In the end this is what we're looking for
 	 *    -------------------
@@ -107,9 +109,6 @@ class CalculatorFrame extends JFrame {
 		for(int i = 0; i < 10; i++)
 			digits.add(Integer.toString(i));
 	}
-	
-	// The indicates whether the next digit-press should clear the screen or not.
-	private boolean clearResultField = true;
 	
 
 	
@@ -273,12 +272,12 @@ class CalculatorFrame extends JFrame {
 				
 				// If the result field should be cleared, do so while adding this digit. Lets also
 				// prevent leading zeroes.
-				if(clearResultField || resultField.getText().equals("0")){
-					
+				//if(clearResultField || resultField.getText().equals("0")){
+					if (standby==true || resultField.getText().equals("0")){
 					// We probably should not be relying on the text in the digit as our 'identifier'
 					// for that button, but it is sufficient for our purposes for now.
 					resultField.setText(j.getText());
-					clearResultField = false;
+					standby=false;
 				}
 				else {
 
@@ -304,36 +303,56 @@ class CalculatorFrame extends JFrame {
 				JButton j = (JButton) e.getSource();
 				
 				String operator = j.getText();
-				
-		
 				switch(operator.charAt(0)){
 				
 					case 'A': // The clear operation.
 					{
 						resultField.setText("0");
-						
-						
-						break; 
+						showing=false;
+						standby=true;
+				        break; 
 					}
 					
 					case '=':
 					{
-					          String ans=resultField.getText()+"="+new SuffixCalc(new MidToSuffix(resultField.getText()).getSuffix(),workMode).getAns(); 
+					         if (showing==false && standby==false)
+					         {
+						      String ans=resultField.getText()+"="+new SuffixCalc(new MidToSuffix(resultField.getText()).getSuffix(),workMode).getAns(); 
 					          resultField.setText(ans);
+					          showing=true;
+					         }
 					          break;
 					}
 					case 'B':
 					{
 						if (resultField.getText().length()==1)
+						{
 							resultField.setText("0");
+							showing=false;
+							standby=true;
+						}
+						
 						else
-							resultField.setText(resultField.getText().substring(0,resultField.getText().length()-1));
+						{
+							showing=false;
+							if (resultField.getText().indexOf('=')>=0) 
+								resultField.setText(resultField.getText().substring(0,resultField.getText().indexOf('=')));
+							else
+							   resultField.setText(resultField.getText().substring(0,resultField.getText().length()-1));
 						break;
+						}
 					}
 					
 				    default:
 				    {
-				       resultField.setText(resultField.getText()+operator);
+				         if (operator.charAt(0)=='-' && standby==true)
+				         {
+				        	 standby=false;
+				        	 showing=false;
+				        	 resultField.setText(operator);
+				         }
+				         else
+				    	   resultField.setText(resultField.getText()+operator);
 				       break;
 				    }
 							

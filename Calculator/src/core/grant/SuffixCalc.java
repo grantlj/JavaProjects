@@ -7,6 +7,7 @@ public class SuffixCalc {
     private double[] nums;
     public static final int numsMax=100;
     private int numsCount;
+    private boolean WA=false;
     
     private static final char[] opSet=new char[]{'+','-','*','/'};
     
@@ -24,6 +25,7 @@ public class SuffixCalc {
     	double tmpInt=0,tmpFloat=0;
     	int tmpFloatCount=0;
     	boolean isInt=true;
+    	boolean negativeFlag=false;
     	
     	for (int i=0;i<mid.length();i++)
     	{
@@ -50,14 +52,22 @@ public class SuffixCalc {
     	   
     	   if (mid.charAt(i)==' ')
     	   {
-    		   addNumberToStack(tmpInt+tmpFloat);
+    		   if (!negativeFlag)
+    			   addNumberToStack(tmpInt+tmpFloat);
+    		   else
+    			   addNumberToStack(-(tmpInt+tmpFloat));
+    		   
     		   tmpInt=0;tmpFloat=0;
     		   tmpFloatCount=0;
     		   isInt=true;
+    		   negativeFlag=false;
     	   }
     	   
     	   if (isOp(mid.charAt(i)))
     	   {
+    		   if (mid.charAt(i)=='-' && (i==0 || mid.charAt(i-1)==' '))
+    				   negativeFlag=true;
+    		   else
     		   refreshStackbyOperators(mid.charAt(i));
     		   
     	   }
@@ -97,16 +107,31 @@ public class SuffixCalc {
     
 	public SuffixCalc(String mid,int mode)
 	{
+		System.out.println("mid is:"+mid);
 		nums=new double[numsMax];
 		this.mid=mid;
 		this.mode=mode;
-		calc();
+		if (!mid.equals("Syntax Error"))
+		try
+		{
+			calc();
+		}
+	    catch (Exception e)
+	    {
+	    	WA=true;
+	    }
+		else 
+		  WA=true;
+		  
 	}
 	
 	public String getAns()
 	{
-		if (numsCount!=1)
-			return "ERROR";
+		if (WA) return mid;
+				
+		else if (numsCount!=1)
+			return "Syntax Error";
+		else
 			return String.valueOf(nums[0]);
 	}
 }

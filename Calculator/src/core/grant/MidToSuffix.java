@@ -12,6 +12,23 @@ public class MidToSuffix {
     private static final int opsMax=1000;
     
     private String tmpNum;
+    
+	
+	private static boolean checkBrace(String s)
+	{
+		int count=0;
+		for (int i=0;i<s.length();i++)
+		{
+			if (s.charAt(i)=='(')
+				count++;
+			else if (s.charAt(i)==')')
+			{
+				count--;
+				if (count<0) return false;
+			}
+		}
+		return (count==0);
+	}
 
     
     private boolean isDigit(char x)
@@ -110,29 +127,40 @@ public class MidToSuffix {
     			if (numing)
     			{
     				numing=false;
+    				
     				addNumber(tmpNum);
+    				//System.out.println("adding:"+tmpNum);
     				tmpNum="";
     			}
     			
     			char x=mid.charAt(i);
     			
     			if (isOp(x))
-    				refreshOpStackbyOperators(x);
+    			{
+    				if (x=='-' && (i==0 || isOp(mid.charAt(i-1)) || mid.charAt(i-1)=='('))
+    				{
+    		            numing=true;
+    		            tmpNum="-";
+    				}
+    				
+    				else
+    				  refreshOpStackbyOperators(x);
     			
+    			}
     			if (x=='(')
     				opStack[opCount++]=x;
     			
     			if (x==')')
     				refreshOpStackbyRight();
     			
-    				
+    			}		
     		}
-    	}
     	
     	if (numing)
     	{
     		numing=false;
     		addNumber(tmpNum);
+    		//System.out.println("adding:"+tmpNum);
     		tmpNum="";
     	}
     	
@@ -145,7 +173,10 @@ public class MidToSuffix {
 		this.mid=s;
 		opStack=new char[opsMax];
 		this.Suffix="";
+		if (checkBrace(s))
 		doTransfer();
+		else 
+			Suffix="Syntax Error";
 	}
     
     public String getSuffix()
