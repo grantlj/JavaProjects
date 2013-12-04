@@ -240,17 +240,23 @@ class CalculatorFrame extends JFrame {
 				char c=j.getText().charAt(0);
 			    if (c=='I')
 			    {
+			    	//Set workMode to Integer Mode.
 			    	workMode=1;
 			    	buttons.get(buttonOrder[4][1]).setEnabled(false);
 			    	resultField.setText("0");
+			    	showing=false;
+					standby=true;
 			    	
 			    }
 			    
 			    if (c=='F')
 			    {
+			    	//Set workMode to Float Mode.
 			    	workMode=2;
 			    	buttons.get(buttonOrder[4][1]).setEnabled(true);
 			    	resultField.setText("0");
+			    	showing=false;
+					standby=true;
 			    }
 				
 			}

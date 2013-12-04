@@ -1,3 +1,7 @@
+/*
+ * Filename: Test.java
+ * Description: A simple test for the MidToSuffix and SuffixCalc.
+ */
 package core.grant;
 
 public class Test {
