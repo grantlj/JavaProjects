@@ -2,6 +2,8 @@
  * Filename: Calculator.java
  * Author: 2S03MakeYouLearnGood
  * Description: This file will teach you about how GUIs are created in Java.
+ *              We adapted the code for homework, all the core code can refer 
+ *              to the core.grantlj.*;
  */
 
 /*
@@ -185,6 +187,8 @@ class CalculatorFrame extends JFrame {
 		ButtonGroup bg=new ButtonGroup();
 		JRadioButton jb1=new JRadioButton("Integer Mode");
 		JRadioButton jb2=new JRadioButton("Float   Mode");
+		
+		//The default mode is integer mode.
 		bg.add(jb1);bg.add(jb2);
 		jb1.setSelected(true);
 		workMode=1;
@@ -321,8 +325,10 @@ class CalculatorFrame extends JFrame {
 					
 					case '=':
 					{
-					         if (showing==false && standby==false)
+					        //"=" pressed, check the showing statement and standby statement. 
+						    if (showing==false && standby==false)
 					         {
+						      //We show out the result ONLY we have pressed expressions.
 						      String ans=resultField.getText()+"="+new SuffixCalc(new MidToSuffix(resultField.getText()).getSuffix(),workMode).getAns(); 
 					          resultField.setText(ans);
 					          showing=true;
@@ -331,34 +337,47 @@ class CalculatorFrame extends JFrame {
 					}
 					case 'B':
 					{
+						//Backspace pressed down, so we set the showing statement to false.
+						showing=false;
+						
+						
 						if (resultField.getText().length()==1)
 						{
+							//length is 1, it means it is the last char,
+							//so set the resultFiled to 0 and make it standby.
 							resultField.setText("0");
-							showing=false;
 							standby=true;
 						}
 						
 						else
 						{
-							showing=false;
+							//to delete a CALCULATED EXPRESSION, we need to delete everything after
+							//the "=";
+							
 							if (resultField.getText().indexOf('=')>=0) 
 								resultField.setText(resultField.getText().substring(0,resultField.getText().indexOf('=')));
 							else
-							   resultField.setText(resultField.getText().substring(0,resultField.getText().length()-1));
+							    //no "=" found, just delete the last character.
+								resultField.setText(resultField.getText().substring(0,resultField.getText().length()-1));
 						break;
 						}
 					}
 					
 				    default:
 				    {
-				         if (operator.charAt(0)=='-' && standby==true)
+				        //To handle the negative number conditions. 
+				    	if (operator.charAt(0)=='-' && standby==true)
 				         {
 				        	 standby=false;
 				        	 showing=false;
 				        	 resultField.setText(operator);
 				         }
 				         else
-				    	   resultField.setText(resultField.getText()+operator);
+				         {
+				        	 standby=false;
+				        	 showing=false;
+				        	 resultField.setText(resultField.getText()+operator);
+				         }
 				       break;
 				    }
 							
