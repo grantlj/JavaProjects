@@ -35,6 +35,7 @@ public class SuffixCalc {
     
     //To define the operators.
     private static final char[] opSet=new char[]{'+','-','*','/'};
+    private static final char[] numSet=new char[]{'0','1','2','3','4','5','6','7','8','9','.'};
     
     // To tell whether a character is an operator.
     private boolean isOp(char x)
@@ -42,6 +43,14 @@ public class SuffixCalc {
     	for (int i=0;i<opSet.length;i++)
     		if (x==opSet[i])
     			return true;
+    	return false;
+    }
+    
+    private boolean isDigit(char x)
+    {
+    	for (int i=0;i<numSet.length;i++)
+    	  if (x==numSet[i])
+    		  return true;
     	return false;
     }
     
@@ -118,7 +127,7 @@ public class SuffixCalc {
   
     	   if (isOp(mid.charAt(i)))
     	   {
-    		   if (mid.charAt(i)=='-' && (i==0 || mid.charAt(i-1)==' '))
+    		   if (mid.charAt(i)=='-' && (i==0 || (i!=mid.length()-1 && mid.charAt(i-1)==' ' && isDigit(mid.charAt(i+1)))))
     				   negativeFlag=true;
     		   else
     		   refreshStackbyOperators(mid.charAt(i));
@@ -191,13 +200,23 @@ public class SuffixCalc {
 	
 	public String getAns()
 	{
-		if (WA) return mid;
+		if (WA) 
+		{
+			System.out.println("Error in midto suffix");
+			return mid;
+		}
 		
 		if (isNaN) return "NaN";
 				
 		else if (numsCount!=1)
+		{
+			System.out.println("Error in calc");
+			for (int i=0;i<numsCount;i++)
+				System.out.println("Stack "+i+" :"+nums[i]);
 			return "Syntax Error";
+		}
+		
 		else
-			return String.valueOf(nums[0]);
+			return String.valueOf((double)Math.round(nums[0]*1000000)/1000000);
 	}
 }

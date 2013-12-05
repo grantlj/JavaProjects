@@ -74,7 +74,7 @@ class CalculatorFrame extends JFrame {
 	 *    -------------------
 	 *    | 1 | 2 | 3 |  -  |
 	 *    -------------------
-	 *    | 0 | . | = |  +  |
+	 *    | 0 |   | = |  +  |
 	 *    -------------------
 	 */
 
@@ -96,7 +96,7 @@ class CalculatorFrame extends JFrame {
 			{ "7", "8", "9", "/" },
 			{ "4", "5", "6", "*" },
 			{ "1", "2", "3", "-" },
-			{ "0", ".", "=", "+" }
+			{ "0", " ", "=", "+" }
 	};
 	
 	
@@ -105,7 +105,7 @@ class CalculatorFrame extends JFrame {
 	// for our symbols and operators!
 	static {
 		
-		for(String x : new String[]{"(", ")", "+", "-", "*", "/", "B", "=", ".", "AC"})
+		for(String x : new String[]{"(", ")", "+", "-", "*", "/", "B", "=", " ", "AC"})
 			operators.add(x);
 		
 		for(int i = 0; i < 10; i++)
@@ -290,8 +290,14 @@ class CalculatorFrame extends JFrame {
 					standby=false;
 				}
 				else {
-
-					resultField.setText(resultField.getText() + j.getText());
+                    if (showing==true)
+                    {
+                    	resultField.setText(j.getText());
+						showing=false;
+						standby=false;
+                    }
+                    else 
+					  resultField.setText(resultField.getText() + j.getText());
 				}
 			}
 		};
@@ -314,8 +320,12 @@ class CalculatorFrame extends JFrame {
 				
 				String operator = j.getText();
 				switch(operator.charAt(0)){
-				
-					case 'A': // The clear operation.
+				  case ' ':{
+					         resultField.setText(resultField.getText()+".");
+				             break;
+				           }
+				  
+				  case 'A': // The clear operation.
 					{
 						resultField.setText("0");
 						showing=false;
@@ -328,6 +338,8 @@ class CalculatorFrame extends JFrame {
 					        //"=" pressed, check the showing statement and standby statement. 
 						    if (showing==false && standby==false)
 					         {
+						     // System.out.println(resultField.getText());
+						      
 						      //We show out the result ONLY we have pressed expressions.
 						      String ans=resultField.getText()+"="+new SuffixCalc(new MidToSuffix(resultField.getText()).getSuffix(),workMode).getAns(); 
 					          resultField.setText(ans);
@@ -365,7 +377,19 @@ class CalculatorFrame extends JFrame {
 					
 				    default:
 				    {
-				        //To handle the negative number conditions. 
+				        if ((operator.charAt(0)=='+' || operator.charAt(0)=='-' || operator.charAt(0)=='*' || operator.charAt(0)=='/') && showing==true)
+				        {
+				        	showing=false;
+				        	String tmp;
+				        	int t=resultField.getText().indexOf('=');
+				        	tmp=resultField.getText().substring(t+1);
+				            resultField.setText(tmp+operator);	
+				        	
+				        }
+				        else
+				        {
+				        
+				    	//To handle the negative number conditions. 
 				    	if (operator.charAt(0)=='-' && standby==true)
 				         {
 				        	 standby=false;
@@ -378,6 +402,7 @@ class CalculatorFrame extends JFrame {
 				        	 showing=false;
 				        	 resultField.setText(resultField.getText()+operator);
 				         }
+				        }
 				       break;
 				    }
 							
