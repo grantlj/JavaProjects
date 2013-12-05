@@ -101,7 +101,11 @@ public class SuffixCalc {
     	   {
     		   //We meet the dot, so change the flag and set the 
     		   //variable which saves the fraction to 0.
-    		   
+    		   if (!isInt)
+    		   {
+    			  WA=true;
+    			  break;
+    		   }
     		   tmpFloatCount=0;
     		   tmpFloat=0;
     		   isInt=false;
@@ -201,20 +205,16 @@ public class SuffixCalc {
 	public String getAns()
 	{
 		if (WA) 
-		{
-			System.out.println("Error in midto suffix");
-			return mid;
-		}
+		
+			return "Syntax Error";
+		
 		
 		if (isNaN) return "NaN";
 				
 		else if (numsCount!=1)
-		{
-			System.out.println("Error in calc");
-			for (int i=0;i<numsCount;i++)
-				System.out.println("Stack "+i+" :"+nums[i]);
+		
 			return "Syntax Error";
-		}
+		
 		
 		else
 			return String.valueOf((double)Math.round(nums[0]*1000000)/1000000);

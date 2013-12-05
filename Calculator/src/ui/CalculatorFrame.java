@@ -390,8 +390,8 @@ class CalculatorFrame extends JFrame {
 				        {
 				        
 				    	//To handle the negative number conditions. 
-				    	if (operator.charAt(0)=='-' && standby==true)
-				         {
+				    	if ( ( (operator.charAt(0)=='-' || operator.charAt(0)=='(') && standby==true) || (operator.charAt(0)=='(' && showing==true))			         
+				    	{
 				        	 standby=false;
 				        	 showing=false;
 				        	 resultField.setText(operator);
