@@ -10,11 +10,15 @@ public class SVGReader {
   public void loadFromFile()
   {
 	  File file=new File(inFile);
+	  int lineCount=0;
 	  try {
 		Scanner sc=new Scanner(file);
 		
 		while (sc.hasNextLine())
 		{
+			if (!sc.hasNext())
+				break;
+			lineCount++;
 			String type;
 			int shapeType;
 			int r,g,b;
@@ -35,8 +39,13 @@ public class SVGReader {
 				arg_1=sc.nextDouble();
 				if (type.equals("square"))
 					shapeType=2;
-				else
+				else if (type.equals("circle"))
 					shapeType=3;
+				else 
+				{
+					System.out.println("Unknown shape description: LINE "+lineCount+" in "+inFile);
+					continue;
+				}
 			}
 			
 			ShapeRec.handleNewShape(shapeType, r, g, b, x_org,y_org, arg_1, arg_2);

@@ -2,8 +2,8 @@ package p4;
 
 public class Grid {
   
-  public static final int maxHeight=1024;
-  public static final int maxWidth=1024;
+  public static final int maxHeight=1080;
+  public static final int maxWidth=1920;
   
   private int height,width;
   
@@ -160,6 +160,12 @@ public class Grid {
   
   public Grid(int w,int h)
   {
+	  if (w>Grid.maxWidth || h>Grid.maxHeight)
+	  {
+		  System.out.println("Grid size out of range(maxWidth=1920; maxHeight=1080)");
+		  System.out.println("Program Exited...");
+		  System.exit(0);
+	  }
 	  this.width=w;
 	  this.height=h;
 	  initPixelMap();
