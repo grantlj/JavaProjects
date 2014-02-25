@@ -14,6 +14,8 @@ public class Board {
 	public static final int maxCol = 8;
 	public static final int maxRow = 8;
 	public static Board boardInstance = null;
+	
+	private int blackCount=0,whiteCount=0;
 
 	// We defines the null blocks here.
 	private static char[][] nullRedBlock = { { '¡ª', '¡ª', '¡ª' },
@@ -58,6 +60,7 @@ public class Board {
 
 			for (int j = 0; j <= maxCol * 3; j++)
 				map[i][j] = ' ';
+		blackCount=0;whiteCount=0;
 
 	}
 
@@ -70,7 +73,7 @@ public class Board {
 					chessBoard[i][j] = 1;
 				if ((i >= 5) && (i + j) % 2 == 1)
 					chessBoard[i][j] = -1;
-
+         blackCount=12;whiteCount=12;
 			}
 	}
 
@@ -213,9 +216,13 @@ public class Board {
 				col = str.charAt(0);
 				row = str.charAt(1) - '0';
 				if (str.charAt(3) == 'W')
-					this.setBlock(col, row, -1);
+					if (checkValid(col,row,-1)) this.setBlock(col, row, -1);
+					else
+						System.out.println("Illegal input.");
 				if (str.charAt(3) == 'B')
-					this.setBlock(col, row, 1);
+					if (checkValid(col,row,1)) this.setBlock(col, row, 1);
+					else
+						System.out.println("Illegal input.");
 			}
 
 			catch (Exception e) {
@@ -224,6 +231,25 @@ public class Board {
 			}
 		} while (true);
 
+	}
+
+	private boolean checkValid(char col, int row, int i) {
+		// TODO Auto-generated method stub
+		if ((col-'A'+row)%2==1 && getBlock(col,row)==0)
+		{
+			if ((i>0) && (blackCount<12)) 
+			{
+				blackCount++;
+			    return true;
+			}
+			
+			if ((i<0) && (whiteCount<12)) 
+			{
+				whiteCount++;
+			    return true;
+			}
+		}		
+		return false;
 	}
 
 	// Get a board instance.(single-instance mode)
